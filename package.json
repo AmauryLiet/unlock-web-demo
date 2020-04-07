@@ -1,0 +1,9 @@
+{
+  "name": "unlock-web-demo",
+  "version": "1.0.0",
+  "description": "Making free games generously provided by Unlock (www.spacecowboys.fr) available without printer",
+  "main": "index.js",
+  "repository": "git@github.com:AmauryLiet/unlock-web-demo.git",
+  "author": "AmauryLiet",
+  "license": "MIT"
+}
