@@ -22,6 +22,7 @@
     "@types/node": "^13.11.1",
     "@types/react": "^16.9.33",
     "pdf2pic": "AmauryLiet/pdf2image#published/fix/uniformize-page-typing",
+    "sharp": "^0.25.2",
     "ts-node": "^8.8.2",
     "typescript": "^3.8.3"
   }

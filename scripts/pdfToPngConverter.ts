@@ -1,10 +1,17 @@
+import * as fs from "fs";
 import path from "path";
 import PDF2Pic from "pdf2pic";
-import { pdfAssetsMetadata } from "../assets/original";
+import sharp from "sharp";
+import {
+  PDF_HORIZONTAL_MARGIN,
+  PDF_VERTICAL_MARGIN,
+  pdfAssetsMetadata,
+} from "../assets/original";
 
 const assetsDir = path.join(__dirname, "../assets");
 const pdfAssetsDir = path.join(assetsDir, "./original");
 const pagesAssetsDir = path.join(assetsDir, "./pages");
+const cardsAssetsDir = path.join(assetsDir, "./cards");
 
 const LARGER_DIMENSION_SIZE = 1500;
 
@@ -40,4 +47,24 @@ pdfAssetsMetadata.forEach(async ({ filename, emptyCardsCountOnLastPage }) => {
     console.error(`cannot convert pdf>png for file "${filename}":`, error);
     return;
   }
+
+  const pdfCardsAssetsDir = path.join(cardsAssetsDir, filename);
+
+  if (!fs.existsSync(pdfCardsAssetsDir)) fs.mkdirSync(pdfCardsAssetsDir);
+
+  pageAssetsMetadata.pagesPaths.map(async (pagePath, index) => {
+    const page = sharp(pagePath);
+    const { width, height } = await page.metadata();
+
+    const top = Math.round(PDF_VERTICAL_MARGIN * height),
+      left = Math.round(PDF_HORIZONTAL_MARGIN * width);
+    await page
+      .extract({
+        left,
+        top,
+        width: width - 2 * left,
+        height: height - 2 * top,
+      })
+      .toFile(path.join(pdfCardsAssetsDir, "output.png"));
+  });
 });
