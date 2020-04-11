@@ -3320,10 +3320,9 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-pdf2pic@^1.3.13:
+pdf2pic@AmauryLiet/pdf2image#published/fix/uniformize-page-typing:
   version "1.3.13"
-  resolved "https://registry.yarnpkg.com/pdf2pic/-/pdf2pic-1.3.13.tgz#5f7a71d14d697fb38c39179ab6bf74d7a10446bc"
-  integrity sha512-OIdUdhI7uQLNDZVpgaS8pruojbMoQnPIbHxyLm+VtQ//zaW14xrail8/QrvPxmJwE/2GPhKetf5PfFcvzfodDg==
+  resolved "https://codeload.github.com/AmauryLiet/pdf2image/tar.gz/fc0a9cca5fa4e90ada7962f20fdb799ddf82a117"
   dependencies:
     "@babel/runtime" "^7.8.7"
     fs-extra "^8.1.0"
