@@ -9,7 +9,9 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "script:run": "ts-node --project tsconfig.scripts.json",
+    "assets:convert_pdf": "yarn script:run scripts/pdfToPngConverter.ts"
   },
   "dependencies": {
     "next": "^9.3.4",
