@@ -11,7 +11,7 @@ const LARGER_DIMENSION_SIZE = 1500;
 interface PageAssetsMetadata {
   name: string;
   emptyCardsCountOnLastPage: number;
-  pagesFilename: string[];
+  pagesPaths: string[];
 }
 
 pdfAssetsMetadata.forEach(async ({ filename, emptyCardsCountOnLastPage }) => {
@@ -34,7 +34,7 @@ pdfAssetsMetadata.forEach(async ({ filename, emptyCardsCountOnLastPage }) => {
     pageAssetsMetadata = {
       name: filename,
       emptyCardsCountOnLastPage,
-      pagesFilename: conversionResults.map((result) => result.name),
+      pagesPaths: conversionResults.map((result) => result.path),
     };
   } catch (error) {
     console.error(`cannot convert pdf>png for file "${filename}":`, error);
