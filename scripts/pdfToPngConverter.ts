@@ -8,7 +8,13 @@ const pagesAssetsDir = path.join(assetsDir, "./pages");
 
 const LARGER_DIMENSION_SIZE = 1500;
 
-pdfAssetsMetadata.map(async ({ filename, emptyCardsCountOnLastPage }) => {
+interface PageAssetsMetadata {
+  name: string;
+  emptyCardsCountOnLastPage: number;
+  pagesFilename: string[];
+}
+
+pdfAssetsMetadata.forEach(async ({ filename, emptyCardsCountOnLastPage }) => {
   const pdf2pic = new PDF2Pic({
     density: 100, // output pixels per inch
     savename: filename, // output file name
@@ -17,15 +23,21 @@ pdfAssetsMetadata.map(async ({ filename, emptyCardsCountOnLastPage }) => {
     size: `${LARGER_DIMENSION_SIZE}x${LARGER_DIMENSION_SIZE}`, // output size in pixels
   });
 
+  let pageAssetsMetadata: PageAssetsMetadata;
   try {
     const conversionResults = await pdf2pic.convertBulk(
       path.join(pdfAssetsDir, `${filename}.pdf`),
       -1
     );
-    console.info("pdf successfully converted in png!");
+    console.info(`✅ pdf "${filename}" successfully converted in png`);
 
-    return conversionResults;
+    pageAssetsMetadata = {
+      name: filename,
+      emptyCardsCountOnLastPage,
+      pagesFilename: conversionResults.map((result) => result.name),
+    };
   } catch (error) {
     console.error(`cannot convert pdf>png for file "${filename}":`, error);
+    return;
   }
 });
