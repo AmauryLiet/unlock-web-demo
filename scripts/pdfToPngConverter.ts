@@ -6,7 +6,7 @@ const assetsDir = path.join(__dirname, "../assets");
 const pdfAssetsDir = path.join(assetsDir, "./original");
 const pagesAssetsDir = path.join(assetsDir, "./pages");
 
-const LARGER_DIMENSION_SIZE = 600;
+const LARGER_DIMENSION_SIZE = 1500;
 
 pdfAssetsMetadata.map(async ({ filename, emptyCardsCountOnLastPage }) => {
   const pdf2pic = new PDF2Pic({
