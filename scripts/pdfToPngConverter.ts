@@ -1,9 +1,9 @@
 import PDF2Pic from "pdf2pic";
-import { pdfAssets } from "../assets/original";
+import { pdfAssetsMetadata } from "../assets/original";
 
 const LARGER_DIMENSION_SIZE = 600;
 
-pdfAssets.map(({ filename, emptyCardsCountOnLastPage }) => {
+pdfAssetsMetadata.map(async ({ filename, emptyCardsCountOnLastPage }) => {
   const pdf2pic = new PDF2Pic({
     density: 100, // output pixels per inch
     savename: filename, // output file name

@@ -1,6 +1,6 @@
 export const CARDS_PER_PAGE = 6;
 
-export const pdfAssets: Array<{ filename: string; emptyCardsCountOnLastPage: number }> = [
+export const pdfAssetsMetadata: Array<{ filename: string; emptyCardsCountOnLastPage: number }> = [
   {
     filename: "0 - tutorial",
     emptyCardsCountOnLastPage: 2,
