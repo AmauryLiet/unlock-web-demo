@@ -15,45 +15,42 @@ const cardsAssetsDir = path.join(assetsDir, "./cards");
 
 const LARGER_DIMENSION_SIZE = 1500;
 
-interface PageAssetsMetadata {
-  name: string;
-  emptyCardsCountOnLastPage: number;
-  pagesPaths: string[];
-}
+type PagePaths = string[];
+
+const convertPdfToPngPages = async (
+  pdfFilename: string
+): Promise<PagePaths> => {
+  const pdf2pic = new PDF2Pic({
+    density: 100, // output pixels per inch
+    savename: pdfFilename, // output file name
+    savedir: pagesAssetsDir, // output file location
+    format: "png", // output file format
+    size: `${LARGER_DIMENSION_SIZE}x${LARGER_DIMENSION_SIZE}`, // output size in pixels
+  });
+
+  try {
+    const conversionResults = await pdf2pic.convertBulk(
+      path.join(pdfAssetsDir, `${pdfFilename}.pdf`),
+      -1
+    );
+    console.info(`✅ pdf "${pdfFilename}" successfully converted in png`);
+
+    return conversionResults.map((result) => result.path);
+  } catch (error) {
+    console.error(`cannot convert pdf>png for file "${pdfFilename}":`, error);
+    throw error;
+  }
+};
 
 pdfAssetsMetadata.forEach(
   async ({ filename: pdfFilename, emptyCardsCountOnLastPage }) => {
-    const pdf2pic = new PDF2Pic({
-      density: 100, // output pixels per inch
-      savename: pdfFilename, // output file name
-      savedir: pagesAssetsDir, // output file location
-      format: "png", // output file format
-      size: `${LARGER_DIMENSION_SIZE}x${LARGER_DIMENSION_SIZE}`, // output size in pixels
-    });
-
-    let pageAssetsMetadata: PageAssetsMetadata;
-    try {
-      const conversionResults = await pdf2pic.convertBulk(
-        path.join(pdfAssetsDir, `${pdfFilename}.pdf`),
-        -1
-      );
-      console.info(`✅ pdf "${pdfFilename}" successfully converted in png`);
-
-      pageAssetsMetadata = {
-        name: pdfFilename,
-        emptyCardsCountOnLastPage,
-        pagesPaths: conversionResults.map((result) => result.path),
-      };
-    } catch (error) {
-      console.error(`cannot convert pdf>png for file "${pdfFilename}":`, error);
-      return;
-    }
+    const pagePaths = await convertPdfToPngPages(pdfFilename);
 
     const pdfCardsAssetsDir = path.join(cardsAssetsDir, pdfFilename);
 
     if (!fs.existsSync(pdfCardsAssetsDir)) fs.mkdirSync(pdfCardsAssetsDir);
 
-    pageAssetsMetadata.pagesPaths.map(async (pagePath, index) => {
+    pagePaths.map(async (pagePath, index) => {
       const page = sharp(pagePath);
       const { width, height } = await page.metadata();
 
