@@ -13,7 +13,7 @@ pdfAssets.map(({ filename, emptyCardsCountOnLastPage }) => {
   });
 
   pdf2pic
-    .convertBulk(`./assets/original/${filename}`, -1)
+    .convertBulk(`./assets/original/${filename}.pdf`, -1)
     .then((resolve) => {
       console.log("pdf converted successfully!");
     })
