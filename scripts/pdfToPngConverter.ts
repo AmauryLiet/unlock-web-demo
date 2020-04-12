@@ -69,8 +69,8 @@ const extractCardsFromPages = async (
         ? consideredPagesPath.reverse()
         : consideredPagesPath;
 
-      const visibleSidePage = await sharp(visibleSidePagePath);
-      const hiddenSidePage = await sharp(secretSidePagePath);
+      const visibleSidePage = sharp(visibleSidePagePath);
+      const hiddenSidePage = sharp(secretSidePagePath);
 
       const {
         width: rawWidth,
@@ -135,9 +135,9 @@ const extractCardsFromPages = async (
       );
 
       console.info(
-        `✅ "${pdfFilename}": split all cards pages ${
-          doublePageIndex * 2
-        } & ${doublePageIndex * 2 + 1}`
+        `✅ "${pdfFilename}": split all cards pages ${doublePageIndex * 2} & ${
+          doublePageIndex * 2 + 1
+        }`
       );
     })
   );
