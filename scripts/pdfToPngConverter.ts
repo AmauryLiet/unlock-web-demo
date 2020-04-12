@@ -20,10 +20,10 @@ const cardsAssetsDir = path.join(assetsDir, "./cards");
 const LARGER_DIMENSION_SIZE = 1500;
 
 type PagePaths = string[];
-type CardMetadata = {
+interface CardMetadata {
   cardVisibleSidePath: string;
   cardSecretSidePath: string;
-};
+}
 
 const convertPdfToPngPages = async (
   pdfFilename: string
