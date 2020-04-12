@@ -48,10 +48,6 @@ const convertPdfToPngPages = async (
   }
 };
 
-const loadPages = async (pagePaths: PagePaths) => {
-  return pagePaths.map((path) => sharp(path));
-};
-
 const getCroppedCardFromPage = async (page: any, cardIndex: number) => {
   const { width, height } = await page.metadata();
 
@@ -129,7 +125,7 @@ const extractCardsFromPages = async (
 allPdfAssetsMetadata.forEach(async (pdfAssetMetadata) => {
   const pagePaths = await convertPdfToPngPages(pdfAssetMetadata.filename);
 
-  const pages = await loadPages(pagePaths);
+  const pages = pagePaths.map((path) => sharp(path));
 
   await extractCardsFromPages(pdfAssetMetadata, pages);
 });
