@@ -25,17 +25,21 @@ export default () => {
     <div>
       <h2>{`Welcome to the scenario "${scenarioName}"`}</h2>
       <h3>Initial pages paths</h3>
-      <ul>
-        {scenarioAssetsMetadata.introCards.map((cardMetadata) => (
-          <li>{cardMetadata.visibleSidePath}</li>
-        ))}
-      </ul>
+      {scenarioAssetsMetadata.introCards.map((cardMetadata) => (
+        <img
+          src={`/${cardMetadata.visibleSidePath}`}
+          alt="Introduction card"
+          style={{ height: 500 }}
+        />
+      ))}
       <h3>Additional pages paths</h3>
-      <ul>
-        {scenarioAssetsMetadata.numberedCards.map((cardMetadata) => (
-          <li>{cardMetadata.visibleSidePath}</li>
-        ))}
-      </ul>
+      {scenarioAssetsMetadata.numberedCards.map((cardMetadata) => (
+        <img
+          src={`/${cardMetadata.visibleSidePath}`}
+          alt="Available card"
+          style={{ height: 500 }}
+        />
+      ))}
     </div>
   );
 };
