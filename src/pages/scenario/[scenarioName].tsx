@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
+import CardPicture, { PictureSizes } from "../../components/CardPicture";
 import { getMetadataForName } from "../../tools/metadataHandling";
 
 export default () => {
@@ -23,18 +24,18 @@ export default () => {
       <h2>{scenarioName}</h2>
       <h3>Initial pages paths</h3>
       {scenarioAssetsMetadata.introCards.map((cardMetadata) => (
-        <img
+        <CardPicture
           src={`/${cardMetadata.visibleSidePath}`}
           alt="Introduction card"
-          style={{ height: 500 }}
+          size={PictureSizes.medium}
         />
       ))}
       <h3>Additional pages paths</h3>
       {scenarioAssetsMetadata.numberedCards.map((cardMetadata) => (
-        <img
+        <CardPicture
           src={`/${cardMetadata.visibleSidePath}`}
           alt="Available card"
-          style={{ height: 200 }}
+          size={PictureSizes.small}
         />
       ))}
     </div>

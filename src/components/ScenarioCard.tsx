@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { ConvertedAssetsMetadata } from "../../scripts/pdfToPngConverter";
+import CardPicture, { PictureSizes } from "./CardPicture";
 
 interface Props {
   scenarioMetadata: ConvertedAssetsMetadata;
@@ -15,10 +16,10 @@ export default ({ scenarioMetadata, href }: Props) => {
           className="scenarioCard"
           style={{ display: "flex", flexDirection: "column", margin: "10px" }}
         >
-          <img
+          <CardPicture
             src={`/${scenarioMetadata.introCards[0].visibleSidePath}`}
             alt="my image"
-            style={{ height: 500 }}
+            size={PictureSizes.medium}
           />
           <span style={{ textAlign: "center" }}>
             {scenarioMetadata.scenarioPublicName}
