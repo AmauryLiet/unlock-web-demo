@@ -60,6 +60,26 @@ const loadPagesAndMetadata = async (pagePaths: PagePaths) => {
   };
 };
 
+const getCroppedCardFromPage = (
+  page: any,
+  pageWidth: number,
+  pageHeight: number,
+  cardIndex: number
+) => {
+  const horizontalOffset = Math.round(PDF_HORIZONTAL_MARGIN * pageWidth),
+    verticalOffset = Math.round(PDF_VERTICAL_MARGIN * pageHeight);
+
+  const cardWidth = Math.round((pageWidth - 2 * horizontalOffset) / 3);
+  const cardHeight = Math.round((pageHeight - 2 * verticalOffset) / 2);
+
+  return page.clone().extract({
+    top: verticalOffset + cardHeight * Math.floor(cardIndex / 3),
+    left: horizontalOffset + cardWidth * Math.floor(cardIndex % 3),
+    width: cardWidth,
+    height: cardHeight,
+  });
+};
+
 const extractCardsFromPages = async (
   pdfAssetMetadata: PdfAssetMetadata,
   pages: any,
@@ -73,9 +93,6 @@ const extractCardsFromPages = async (
 
   const cardCount = (pages.length / 2) * CARDS_PER_PAGE;
 
-  const horizontalOffset = Math.round(PDF_HORIZONTAL_MARGIN * pageWidth),
-    verticalOffset = Math.round(PDF_VERTICAL_MARGIN * pageHeight);
-
   await Promise.all(
     [...Array(cardCount)].map(async (_, cardIndex) => {
       const firstInterestingPageIndex =
@@ -85,9 +102,6 @@ const extractCardsFromPages = async (
         pages[firstInterestingPageIndex + (startWithSecretFaces ? 1 : 0)];
       const pageWithSecretSide =
         pages[firstInterestingPageIndex + (startWithSecretFaces ? 0 : 1)];
-
-      const cardWidth = Math.round((pageWidth - 2 * horizontalOffset) / 3);
-      const cardHeight = Math.round((pageHeight - 2 * verticalOffset) / 2);
 
       const cardIndexOnFirstPage = cardIndex % CARDS_PER_PAGE;
       const cardIndexOnSecondPage =
@@ -101,32 +115,19 @@ const extractCardsFromPages = async (
         ? cardIndexOnFirstPage
         : cardIndexOnSecondPage;
 
-      await pageWithVisibleSide
-        .clone()
-        .extract({
-          top:
-            verticalOffset +
-            cardHeight * Math.floor(cardIndexOnVisiblePage / 3),
-          left:
-            horizontalOffset +
-            cardWidth * Math.floor(cardIndexOnVisiblePage % 3),
-          width: cardWidth,
-          height: cardHeight,
-        })
-        .toFile(path.join(pdfCardsAssetsDir, `${cardIndex}-visible.png`));
+      await getCroppedCardFromPage(
+        pageWithVisibleSide,
+        pageWidth,
+        pageHeight,
+        cardIndexOnVisiblePage
+      ).toFile(path.join(pdfCardsAssetsDir, `${cardIndex}-visible.png`));
 
-      await pageWithSecretSide
-        .clone()
-        .extract({
-          top:
-            verticalOffset + cardHeight * Math.floor(cardIndexOnSecretPage / 3),
-          left:
-            horizontalOffset +
-            cardWidth * Math.floor(cardIndexOnSecretPage % 3),
-          width: cardWidth,
-          height: cardHeight,
-        })
-        .toFile(path.join(pdfCardsAssetsDir, `${cardIndex}-secret.png`));
+      await getCroppedCardFromPage(
+        pageWithSecretSide,
+        pageWidth,
+        pageHeight,
+        cardIndexOnSecretPage
+      ).toFile(path.join(pdfCardsAssetsDir, `${cardIndex}-secret.png`));
       console.info(
         `✅ "${pdfFilename}": split card ${cardIndex + 1}/${cardCount}`
       );
