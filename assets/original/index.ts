@@ -9,7 +9,26 @@ export interface PdfAssetMetadata {
   emptyCardsCountOnLastPage: number;
   startWithSecretFaces: boolean;
   introductionCards: number[];
+  marginDetails: MarginDetails;
 }
+
+export interface MarginDetails {
+  horizontalPercentage: number;
+  topPercentage: number;
+  bottomPercentage: number;
+}
+
+const standardMargins: MarginDetails = {
+  horizontalPercentage: 6,
+  topPercentage: 8.7,
+  bottomPercentage: 8.7,
+};
+
+const withHeaderMargins: MarginDetails = {
+  horizontalPercentage: 5.5,
+  topPercentage: 15,
+  bottomPercentage: 6.4,
+};
 
 export const allPdfAssetsMetadata: Array<PdfAssetMetadata> = [
   {
@@ -17,35 +36,41 @@ export const allPdfAssetsMetadata: Array<PdfAssetMetadata> = [
     emptyCardsCountOnLastPage: 2,
     startWithSecretFaces: true,
     introductionCards: [0],
+    marginDetails: standardMargins,
   },
   {
     filename: "1 - 5ème avenue",
     emptyCardsCountOnLastPage: 3,
     startWithSecretFaces: true,
     introductionCards: [0, 1],
+    marginDetails: standardMargins,
   },
   {
     filename: "2 - Le donjon de Doo-Arann",
     emptyCardsCountOnLastPage: 0,
     startWithSecretFaces: false,
     introductionCards: [0, 1, 2],
+    marginDetails: withHeaderMargins,
   },
   {
     filename: "3 - La chambre d'hôtel",
     emptyCardsCountOnLastPage: 4,
     startWithSecretFaces: true,
     introductionCards: [0],
+    marginDetails: standardMargins,
   },
   {
     filename: "4 - A la poursuite de Cabrakan",
     emptyCardsCountOnLastPage: 0,
     startWithSecretFaces: false,
     introductionCards: [0, 1, 2],
+    marginDetails: withHeaderMargins,
   },
   {
     filename: "5 - L’autel du dieu RA",
     emptyCardsCountOnLastPage: 0,
     startWithSecretFaces: true,
     introductionCards: [2],
+    marginDetails: standardMargins,
   },
 ];
