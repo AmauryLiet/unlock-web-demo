@@ -48,9 +48,22 @@ const convertPdfToPngPages = async (
   }
 };
 
+const loadPagesAndMetadata = async (pagePaths: PagePaths) => {
+  const pages = pagePaths.map((path) => sharp(path));
+  const { width, height } = await pages[0].metadata();
+
+  return {
+    pages,
+    width,
+    height,
+  };
+};
+
 const extractCardsFromPages = async (
   pdfAssetMetadata: PdfAssetMetadata,
-  pagePaths: string[]
+  pages: any,
+  pageWidth: number,
+  pageHeight: number
 ): Promise<CardsMetadata> => {
   const { filename: pdfFilename, startWithSecretFaces } = pdfAssetMetadata;
 
@@ -58,31 +71,24 @@ const extractCardsFromPages = async (
 
   if (!fs.existsSync(pdfCardsAssetsDir)) fs.mkdirSync(pdfCardsAssetsDir);
 
-  const doublePageCount = pagePaths.length / 2;
+  const doublePageCount = pages.length / 2;
 
   await Promise.all(
     [...Array(doublePageCount)].map(async (_, doublePageIndex) => {
-      const consideredPagesPath = pagePaths
-        .slice(doublePageIndex * 2)
-        .slice(0, 2);
-      const [visibleSidePagePath, secretSidePagePath] = startWithSecretFaces
-        ? consideredPagesPath.reverse()
-        : consideredPagesPath;
+      const consideredPages = pages.slice(doublePageIndex * 2).slice(0, 2);
+      const [visibleSidePage, secretSidePage] = startWithSecretFaces
+        ? consideredPages.reverse()
+        : consideredPages;
 
-      const visibleSidePage = sharp(visibleSidePagePath);
-      const hiddenSidePage = sharp(secretSidePagePath);
-
-      const {
-        width: rawWidth,
-        height: rawHeight,
-      } = await visibleSidePage.metadata();
-      const horizontalOffset = Math.round(PDF_HORIZONTAL_MARGIN * rawWidth),
-        verticalOffset = Math.round(PDF_VERTICAL_MARGIN * rawHeight);
+      const horizontalOffset = Math.round(PDF_HORIZONTAL_MARGIN * pageWidth),
+        verticalOffset = Math.round(PDF_VERTICAL_MARGIN * pageHeight);
 
       const pageHorizontalUnit = Math.round(
-        (rawWidth - 2 * horizontalOffset) / 3
+        (pageWidth - 2 * horizontalOffset) / 3
       );
-      const pageVerticalUnit = Math.round((rawHeight - 2 * verticalOffset) / 2);
+      const pageVerticalUnit = Math.round(
+        (pageHeight - 2 * verticalOffset) / 2
+      );
 
       await Promise.all(
         [...Array(CARDS_PER_PAGE)].map(async (_, cardIndexOnPage) => {
@@ -116,7 +122,7 @@ const extractCardsFromPages = async (
             doublePageIndex * CARDS_PER_PAGE +
             cardIndexOnPageOfVisibleEquivalent;
 
-          await hiddenSidePage
+          await secretSidePage
             .clone()
             .extract({
               top:
@@ -148,5 +154,11 @@ const extractCardsFromPages = async (
 allPdfAssetsMetadata.forEach(async (pdfAssetMetadata) => {
   const pagePaths = await convertPdfToPngPages(pdfAssetMetadata.filename);
 
-  await extractCardsFromPages(pdfAssetMetadata, pagePaths);
+  const {
+    pages,
+    width: pageWidth,
+    height: pageHeight,
+  } = await loadPagesAndMetadata(pagePaths);
+
+  await extractCardsFromPages(pdfAssetMetadata, pages, pageWidth, pageHeight);
 });
