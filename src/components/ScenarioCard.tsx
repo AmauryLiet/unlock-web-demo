@@ -12,6 +12,7 @@ export default ({ scenarioMetadata, href }: Props) => {
     <>
       <Link href={href}>
         <div
+          className="scenarioCard"
           style={{ display: "flex", flexDirection: "column", margin: "10px" }}
         >
           <img
@@ -25,10 +26,10 @@ export default ({ scenarioMetadata, href }: Props) => {
         </div>
       </Link>
       <style jsx>{`
-        div {
+        .scenarioCard {
           background-color: lightgrey;
         }
-        div:hover {
+        .scenarioCard:hover {
           background-color: lightgreen;
         }
       `}</style>
