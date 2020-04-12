@@ -23,7 +23,7 @@ interface CardMetadata {
   visibleSidePath: string;
   secretSidePath: string;
 }
-interface ConvertedAssetsMetadata {
+export interface ConvertedAssetsMetadata {
   scenarioPublicName: string;
   introCards: CardMetadata[];
   numberedCards: CardMetadata[];

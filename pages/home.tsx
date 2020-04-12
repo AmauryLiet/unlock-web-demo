@@ -1,5 +1,8 @@
 import Head from "next/head";
 
+import { ConvertedAssetsMetadata } from "../scripts/pdfToPngConverter";
+const convertedAssetsMetadata: ConvertedAssetsMetadata[] = require("../public/metadata.json");
+
 export default () => {
   return (
     <div>
@@ -15,7 +18,29 @@ export default () => {
           type="image/png"
         />
       </Head>
-      <p>Hello Next.tsx</p>
+      <h1>Unlock</h1>
+      <h2>Scénarios</h2>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {convertedAssetsMetadata.map((scenarioMetadata) => (
+          <div
+            style={{ display: "flex", flexDirection: "column", margin: "10px" }}
+          >
+            <img
+              src={`/${scenarioMetadata.introCards[0].visibleSidePath}`}
+              alt="my image"
+              style={{ height: 500 }}
+            />
+            <span
+              style={{
+                textAlign: "center",
+                fontFamily: "Roboto, sans-serif",
+              }}
+            >
+              {scenarioMetadata.scenarioPublicName}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
