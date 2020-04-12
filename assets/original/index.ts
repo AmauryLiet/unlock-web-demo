@@ -1,4 +1,4 @@
-export const CARDS_PER_PAGE = 6;
+export const CARD_COUNT_PER_PAGE = 6;
 export const PDF_VERTICAL_MARGIN = 8.7 / 100;
 export const PDF_HORIZONTAL_MARGIN = 6 / 100;
 

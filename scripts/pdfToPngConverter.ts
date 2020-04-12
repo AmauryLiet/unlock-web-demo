@@ -3,7 +3,7 @@ import path from "path";
 import PDF2Pic from "pdf2pic";
 import sharp from "sharp";
 import {
-  CARDS_PER_PAGE,
+  CARD_COUNT_PER_PAGE,
   PDF_HORIZONTAL_MARGIN,
   PDF_VERTICAL_MARGIN,
   allPdfAssetsMetadata,
@@ -79,19 +79,19 @@ const extractCardsFromPages = async (
   if (!fs.existsSync(pdfCardsAssetsDir)) fs.mkdirSync(pdfCardsAssetsDir);
 
   const cardCount =
-    (pages.length / 2) * CARDS_PER_PAGE - emptyCardsCountOnLastPage;
+    (pages.length / 2) * CARD_COUNT_PER_PAGE - emptyCardsCountOnLastPage;
 
   await Promise.all(
     [...Array(cardCount)].map(async (_, cardIndex) => {
       const firstInterestingPageIndex =
-        Math.floor(cardIndex / CARDS_PER_PAGE) * 2;
+        Math.floor(cardIndex / CARD_COUNT_PER_PAGE) * 2;
 
       const pageWithVisibleSide =
         pages[firstInterestingPageIndex + (startWithSecretFaces ? 1 : 0)];
       const pageWithSecretSide =
         pages[firstInterestingPageIndex + (startWithSecretFaces ? 0 : 1)];
 
-      const cardIndexOnFirstPage = cardIndex % CARDS_PER_PAGE;
+      const cardIndexOnFirstPage = cardIndex % CARD_COUNT_PER_PAGE;
       const cardIndexOnSecondPage =
         Math.floor(cardIndexOnFirstPage / 3) * 3 +
         (2 - (cardIndexOnFirstPage % 3));
