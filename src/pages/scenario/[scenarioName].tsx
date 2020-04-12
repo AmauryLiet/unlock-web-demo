@@ -23,7 +23,7 @@ export default () => {
 
   return (
     <div>
-      <h2>{`Welcome to the scenario "${scenarioName}"`}</h2>
+      <h2>{scenarioName}</h2>
       <h3>Initial pages paths</h3>
       {scenarioAssetsMetadata.introCards.map((cardMetadata) => (
         <img
@@ -37,7 +37,7 @@ export default () => {
         <img
           src={`/${cardMetadata.visibleSidePath}`}
           alt="Available card"
-          style={{ height: 500 }}
+          style={{ height: 200 }}
         />
       ))}
     </div>
