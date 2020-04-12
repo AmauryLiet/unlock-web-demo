@@ -50,6 +50,7 @@ const convertPdfToPngPages = async (
 
 const loadPagesAndMetadata = async (pagePaths: PagePaths) => {
   const pages = pagePaths.map((path) => sharp(path));
+  // ⚠️ assumption: all pages have the same width & height
   const { width, height } = await pages[0].metadata();
 
   return {
