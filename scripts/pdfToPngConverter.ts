@@ -20,8 +20,8 @@ const LARGER_DIMENSION_SIZE = 1500;
 
 type PagePaths = string[];
 interface CardMetadata {
-  cardVisibleSidePath: string;
-  cardSecretSidePath: string;
+  visibleSidePath: string;
+  secretSidePath: string;
 }
 interface ConvertedAssetsMetadata {
   scenarioPublicName: string;
@@ -152,8 +152,8 @@ const extractCardsFromPages = async (
         );
 
         return {
-          cardVisibleSidePath,
-          cardSecretSidePath,
+          visibleSidePath: cardVisibleSidePath,
+          secretSidePath: cardSecretSidePath,
         };
       }
     )
