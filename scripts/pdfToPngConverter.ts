@@ -16,6 +16,10 @@ const cardsAssetsDir = path.join(assetsDir, "./cards");
 const LARGER_DIMENSION_SIZE = 1500;
 
 type PagePaths = string[];
+type CardsMetadata = Array<{
+  pathVisibleSide: string;
+  pathHiddenSide: string;
+}>;
 
 const convertPdfToPngPages = async (
   pdfFilename: string
@@ -42,28 +46,36 @@ const convertPdfToPngPages = async (
   }
 };
 
+const extractCardsFromPages = async (
+  pdfFilename: string,
+  pagePaths: string[]
+): Promise<CardsMetadata> => {
+  const pdfCardsAssetsDir = path.join(cardsAssetsDir, pdfFilename);
+
+  if (!fs.existsSync(pdfCardsAssetsDir)) fs.mkdirSync(pdfCardsAssetsDir);
+
+  pagePaths.map(async (pagePath, index) => {
+    const page = sharp(pagePath);
+    const { width, height } = await page.metadata();
+
+    const top = Math.round(PDF_VERTICAL_MARGIN * height),
+      left = Math.round(PDF_HORIZONTAL_MARGIN * width);
+    await page
+      .extract({
+        left,
+        top,
+        width: width - 2 * left,
+        height: height - 2 * top,
+      })
+      .toFile(path.join(pdfCardsAssetsDir, "output.png"));
+  });
+  return [];
+};
+
 pdfAssetsMetadata.forEach(
   async ({ filename: pdfFilename, emptyCardsCountOnLastPage }) => {
     const pagePaths = await convertPdfToPngPages(pdfFilename);
 
-    const pdfCardsAssetsDir = path.join(cardsAssetsDir, pdfFilename);
-
-    if (!fs.existsSync(pdfCardsAssetsDir)) fs.mkdirSync(pdfCardsAssetsDir);
-
-    pagePaths.map(async (pagePath, index) => {
-      const page = sharp(pagePath);
-      const { width, height } = await page.metadata();
-
-      const top = Math.round(PDF_VERTICAL_MARGIN * height),
-        left = Math.round(PDF_HORIZONTAL_MARGIN * width);
-      await page
-        .extract({
-          left,
-          top,
-          width: width - 2 * left,
-          height: height - 2 * top,
-        })
-        .toFile(path.join(pdfCardsAssetsDir, "output.png"));
-    });
+    const cardsMetadata = await extractCardsFromPages(pdfFilename, pagePaths);
   }
 );
