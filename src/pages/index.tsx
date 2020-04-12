@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
 
-import ScenarioCard from "../components/ScenarioCard";
+import ScenarioPresentation from "../components/ScenarioPresentation";
 import { getAllMetadata } from "../tools/metadataHandling";
 
 export default () => {
@@ -23,7 +23,7 @@ export default () => {
       <h2>Scénarios</h2>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {getAllMetadata().map((scenarioMetadata) => (
-          <ScenarioCard
+          <ScenarioPresentation
             key={scenarioMetadata.scenarioPublicName}
             scenarioMetadata={scenarioMetadata}
             href={`/scenario/${scenarioMetadata.scenarioPublicName}`}
