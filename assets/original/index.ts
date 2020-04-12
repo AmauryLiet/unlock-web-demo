@@ -2,7 +2,7 @@ export const CARDS_PER_PAGE = 6;
 export const PDF_VERTICAL_MARGIN = 8.7 / 100;
 export const PDF_HORIZONTAL_MARGIN = 6 / 100;
 
-interface PdfAssetMetadata {
+export interface PdfAssetMetadata {
   filename: string;
   emptyCardsCountOnLastPage: number;
   startWithSecretFaces: boolean;

@@ -6,6 +6,7 @@ import {
   PDF_HORIZONTAL_MARGIN,
   PDF_VERTICAL_MARGIN,
   allPdfAssetsMetadata,
+  PdfAssetMetadata,
 } from "../assets/original";
 
 const assetsDir = path.join(__dirname, "../assets");
@@ -47,9 +48,11 @@ const convertPdfToPngPages = async (
 };
 
 const extractCardsFromPages = async (
-  pdfFilename: string,
+  pdfAssetMetadata: PdfAssetMetadata,
   pagePaths: string[]
 ): Promise<CardsMetadata> => {
+  const { filename: pdfFilename } = pdfAssetMetadata;
+
   const pdfCardsAssetsDir = path.join(cardsAssetsDir, pdfFilename);
 
   if (!fs.existsSync(pdfCardsAssetsDir)) fs.mkdirSync(pdfCardsAssetsDir);
@@ -72,10 +75,8 @@ const extractCardsFromPages = async (
   return [];
 };
 
-allPdfAssetsMetadata.forEach(
-  async ({ filename: pdfFilename, emptyCardsCountOnLastPage }) => {
-    const pagePaths = await convertPdfToPngPages(pdfFilename);
+allPdfAssetsMetadata.forEach(async (pdfAssetMetadata) => {
+  const pagePaths = await convertPdfToPngPages(pdfAssetMetadata.filename);
 
-    const cardsMetadata = await extractCardsFromPages(pdfFilename, pagePaths);
-  }
-);
+  await extractCardsFromPages(pdfAssetMetadata, pagePaths);
+});
