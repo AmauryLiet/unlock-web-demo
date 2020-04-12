@@ -27,10 +27,12 @@ export default ({ scenarioMetadata, href }: Props) => {
       </Link>
       <style jsx>{`
         .scenarioCard {
-          background-color: lightgrey;
+          background-color: beige;
+          border: 3px solid transparent;
         }
         .scenarioCard:hover {
           background-color: lightgreen;
+          border-color: lightgreen;
         }
       `}</style>
     </>
