@@ -3,6 +3,7 @@ import path from "path";
 import PDF2Pic from "pdf2pic";
 import sharp from "sharp";
 import {
+  CARDS_PER_PAGE,
   PDF_HORIZONTAL_MARGIN,
   PDF_VERTICAL_MARGIN,
   allPdfAssetsMetadata,
@@ -51,27 +52,96 @@ const extractCardsFromPages = async (
   pdfAssetMetadata: PdfAssetMetadata,
   pagePaths: string[]
 ): Promise<CardsMetadata> => {
-  const { filename: pdfFilename } = pdfAssetMetadata;
+  const { filename: pdfFilename, startWithSecretFaces } = pdfAssetMetadata;
 
   const pdfCardsAssetsDir = path.join(cardsAssetsDir, pdfFilename);
 
   if (!fs.existsSync(pdfCardsAssetsDir)) fs.mkdirSync(pdfCardsAssetsDir);
 
-  pagePaths.map(async (pagePath, index) => {
-    const page = sharp(pagePath);
-    const { width, height } = await page.metadata();
+  const doublePageCount = pagePaths.length / 2;
 
-    const top = Math.round(PDF_VERTICAL_MARGIN * height),
-      left = Math.round(PDF_HORIZONTAL_MARGIN * width);
-    await page
-      .extract({
-        left,
-        top,
-        width: width - 2 * left,
-        height: height - 2 * top,
-      })
-      .toFile(path.join(pdfCardsAssetsDir, "output.png"));
-  });
+  await Promise.all(
+    [...Array(doublePageCount)].map(async (_, doublePageIndex) => {
+      const consideredPagesPath = pagePaths
+        .slice(doublePageIndex * 2)
+        .slice(0, 2);
+      const [visibleSidePagePath, secretSidePagePath] = startWithSecretFaces
+        ? consideredPagesPath.reverse()
+        : consideredPagesPath;
+
+      const visibleSidePage = await sharp(visibleSidePagePath);
+      const hiddenSidePage = await sharp(secretSidePagePath);
+
+      const {
+        width: rawWidth,
+        height: rawHeight,
+      } = await visibleSidePage.metadata();
+      const horizontalOffset = Math.round(PDF_HORIZONTAL_MARGIN * rawWidth),
+        verticalOffset = Math.round(PDF_VERTICAL_MARGIN * rawHeight);
+
+      const pageHorizontalUnit = Math.round(
+        (rawWidth - 2 * horizontalOffset) / 3
+      );
+      const pageVerticalUnit = Math.round((rawHeight - 2 * verticalOffset) / 2);
+
+      await Promise.all(
+        [...Array(CARDS_PER_PAGE)].map(async (_, cardIndexOnPage) => {
+          const cardGlobalIndex =
+            doublePageIndex * CARDS_PER_PAGE + cardIndexOnPage;
+
+          await visibleSidePage
+            .clone()
+            .extract({
+              top:
+                verticalOffset +
+                pageVerticalUnit * Math.floor(cardIndexOnPage / 3),
+              left:
+                horizontalOffset +
+                pageHorizontalUnit * Math.floor(cardIndexOnPage % 3),
+              width: pageHorizontalUnit,
+              height: pageVerticalUnit,
+            })
+            .toFile(
+              path.join(pdfCardsAssetsDir, `${cardGlobalIndex}-visible.png`)
+            );
+        })
+      );
+
+      await Promise.all(
+        [...Array(CARDS_PER_PAGE)].map(async (_, cardIndexOnPage) => {
+          const cardIndexOnPageOfVisibleEquivalent =
+            Math.floor(cardIndexOnPage / 3) * 3 + (2 - (cardIndexOnPage % 3));
+
+          const cardGlobalIndex =
+            doublePageIndex * CARDS_PER_PAGE +
+            cardIndexOnPageOfVisibleEquivalent;
+
+          await hiddenSidePage
+            .clone()
+            .extract({
+              top:
+                verticalOffset +
+                pageVerticalUnit * Math.floor(cardIndexOnPage / 3),
+              left:
+                horizontalOffset +
+                pageHorizontalUnit * Math.floor(cardIndexOnPage % 3),
+              width: pageHorizontalUnit,
+              height: pageVerticalUnit,
+            })
+            .toFile(
+              path.join(pdfCardsAssetsDir, `${cardGlobalIndex}-secret.png`)
+            );
+        })
+      );
+
+      console.info(
+        `✅ "${pdfFilename}": split all cards pages ${
+          doublePageIndex * 2
+        } & ${doublePageIndex * 2 + 1}`
+      );
+    })
+  );
+
   return [];
 };
 
