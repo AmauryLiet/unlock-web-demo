@@ -20,10 +20,10 @@ const cardsAssetsDir = path.join(assetsDir, "./cards");
 const LARGER_DIMENSION_SIZE = 1500;
 
 type PagePaths = string[];
-type CardsMetadata = Array<{
-  pathVisibleSide: string;
-  pathHiddenSide: string;
-}>;
+type CardMetadata = {
+  cardVisibleSidePath: string;
+  cardSecretSidePath: string;
+};
 
 const convertPdfToPngPages = async (
   pdfFilename: string
@@ -78,7 +78,7 @@ const getCroppedCardFromPage = async (page: any, cardIndex: number) => {
 const extractCardsFromPages = async (
   pdfAssetMetadata: PdfAssetMetadata,
   pages: any
-): Promise<CardsMetadata> => {
+): Promise<CardMetadata[]> => {
   const {
     filename: pdfFilename,
     startWithSecretFaces,
@@ -91,53 +91,62 @@ const extractCardsFromPages = async (
   const cardCount =
     (pages.length / 2) * CARD_COUNT_PER_PAGE - emptyCardsCountOnLastPage;
 
-  await Promise.all(
-    [...Array(cardCount)].map(async (_, cardIndex) => {
-      const firstInterestingPageIndex =
-        Math.floor(cardIndex / CARD_COUNT_PER_PAGE) * 2;
+  return await Promise.all(
+    [...Array(cardCount)].map(
+      async (_, cardIndex): Promise<CardMetadata> => {
+        const firstInterestingPageIndex =
+          Math.floor(cardIndex / CARD_COUNT_PER_PAGE) * 2;
 
-      const pageWithVisibleSide =
-        pages[firstInterestingPageIndex + (startWithSecretFaces ? 1 : 0)];
-      const pageWithSecretSide =
-        pages[firstInterestingPageIndex + (startWithSecretFaces ? 0 : 1)];
+        const pageWithVisibleSide =
+          pages[firstInterestingPageIndex + (startWithSecretFaces ? 1 : 0)];
+        const pageWithSecretSide =
+          pages[firstInterestingPageIndex + (startWithSecretFaces ? 0 : 1)];
 
-      const cardIndexOnFirstPage = cardIndex % CARD_COUNT_PER_PAGE;
-      const cardIndexOnSecondPage =
-        COLUMN_COUNT_PER_PAGE *
-          Math.floor(cardIndexOnFirstPage / COLUMN_COUNT_PER_PAGE) +
-        (COLUMN_COUNT_PER_PAGE -
-          (cardIndexOnFirstPage % COLUMN_COUNT_PER_PAGE) -
-          1);
+        const cardIndexOnFirstPage = cardIndex % CARD_COUNT_PER_PAGE;
+        const cardIndexOnSecondPage =
+          COLUMN_COUNT_PER_PAGE *
+            Math.floor(cardIndexOnFirstPage / COLUMN_COUNT_PER_PAGE) +
+          (COLUMN_COUNT_PER_PAGE -
+            (cardIndexOnFirstPage % COLUMN_COUNT_PER_PAGE) -
+            1);
 
-      const cardIndexOnVisiblePage = startWithSecretFaces
-        ? cardIndexOnSecondPage
-        : cardIndexOnFirstPage;
-      const cardIndexOnSecretPage = startWithSecretFaces
-        ? cardIndexOnFirstPage
-        : cardIndexOnSecondPage;
+        const cardIndexOnVisiblePage = startWithSecretFaces
+          ? cardIndexOnSecondPage
+          : cardIndexOnFirstPage;
+        const cardIndexOnSecretPage = startWithSecretFaces
+          ? cardIndexOnFirstPage
+          : cardIndexOnSecondPage;
 
-      const cardVisibleSide = await getCroppedCardFromPage(
-        pageWithVisibleSide,
-        cardIndexOnVisiblePage
-      );
-      await cardVisibleSide.toFile(
-        path.join(pdfCardsAssetsDir, `${cardIndex}-visible.png`)
-      );
+        const cardVisibleSide = await getCroppedCardFromPage(
+          pageWithVisibleSide,
+          cardIndexOnVisiblePage
+        );
+        const cardVisibleSidePath = path.join(
+          pdfCardsAssetsDir,
+          `${cardIndex}-visible.png`
+        );
+        await cardVisibleSide.toFile(cardVisibleSidePath);
 
-      const cardSecretSide = await getCroppedCardFromPage(
-        pageWithSecretSide,
-        cardIndexOnSecretPage
-      );
-      await cardSecretSide.toFile(
-        path.join(pdfCardsAssetsDir, `${cardIndex}-secret.png`)
-      );
-      console.info(
-        `✅ "${pdfFilename}": split card ${cardIndex + 1}/${cardCount}`
-      );
-    })
+        const cardSecretSide = await getCroppedCardFromPage(
+          pageWithSecretSide,
+          cardIndexOnSecretPage
+        );
+        const cardSecretSidePath = path.join(
+          pdfCardsAssetsDir,
+          `${cardIndex}-secret.png`
+        );
+        await cardSecretSide.toFile(cardSecretSidePath);
+        console.info(
+          `✅ "${pdfFilename}": split card ${cardIndex + 1}/${cardCount}`
+        );
+
+        return {
+          cardVisibleSidePath,
+          cardSecretSidePath,
+        };
+      }
+    )
   );
-
-  return [];
 };
 
 allPdfAssetsMetadata.forEach(async (pdfAssetMetadata) => {
