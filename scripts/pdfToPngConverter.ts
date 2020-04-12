@@ -81,9 +81,9 @@ const extractCardsFromPages = async (
       const firstInterestingPageIndex =
         Math.floor(cardIndex / CARDS_PER_PAGE) * 2;
 
-      const visibleSidePage =
+      const pageWithVisibleSide =
         pages[firstInterestingPageIndex + (startWithSecretFaces ? 1 : 0)];
-      const secretSidePage =
+      const pageWithSecretSide =
         pages[firstInterestingPageIndex + (startWithSecretFaces ? 0 : 1)];
 
       const pageHorizontalUnit = Math.round(
@@ -105,7 +105,7 @@ const extractCardsFromPages = async (
         ? cardIndexOnFirstPage
         : cardIndexOnSecondPage;
 
-      await visibleSidePage
+      await pageWithVisibleSide
         .clone()
         .extract({
           top:
@@ -119,7 +119,7 @@ const extractCardsFromPages = async (
         })
         .toFile(path.join(pdfCardsAssetsDir, `${cardIndex}-visible.png`));
 
-      await secretSidePage
+      await pageWithSecretSide
         .clone()
         .extract({
           top:
