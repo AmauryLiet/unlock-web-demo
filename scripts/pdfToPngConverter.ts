@@ -48,29 +48,18 @@ const convertPdfToPngPages = async (
   }
 };
 
-const loadPagesAndMetadata = async (pagePaths: PagePaths) => {
-  const pages = pagePaths.map((path) => sharp(path));
-  // ⚠️ assumption: all pages have the same width & height
-  const { width, height } = await pages[0].metadata();
-
-  return {
-    pages,
-    width,
-    height,
-  };
+const loadPages = async (pagePaths: PagePaths) => {
+  return pagePaths.map((path) => sharp(path));
 };
 
-const getCroppedCardFromPage = (
-  page: any,
-  pageWidth: number,
-  pageHeight: number,
-  cardIndex: number
-) => {
-  const horizontalOffset = Math.round(PDF_HORIZONTAL_MARGIN * pageWidth),
-    verticalOffset = Math.round(PDF_VERTICAL_MARGIN * pageHeight);
+const getCroppedCardFromPage = async (page: any, cardIndex: number) => {
+  const { width, height } = await page.metadata();
 
-  const cardWidth = Math.round((pageWidth - 2 * horizontalOffset) / 3);
-  const cardHeight = Math.round((pageHeight - 2 * verticalOffset) / 2);
+  const horizontalOffset = Math.round(PDF_HORIZONTAL_MARGIN * width),
+    verticalOffset = Math.round(PDF_VERTICAL_MARGIN * height);
+
+  const cardWidth = Math.round((width - 2 * horizontalOffset) / 3);
+  const cardHeight = Math.round((height - 2 * verticalOffset) / 2);
 
   return page.clone().extract({
     top: verticalOffset + cardHeight * Math.floor(cardIndex / 3),
@@ -82,9 +71,7 @@ const getCroppedCardFromPage = (
 
 const extractCardsFromPages = async (
   pdfAssetMetadata: PdfAssetMetadata,
-  pages: any,
-  pageWidth: number,
-  pageHeight: number
+  pages: any
 ): Promise<CardsMetadata> => {
   const { filename: pdfFilename, startWithSecretFaces } = pdfAssetMetadata;
 
@@ -115,19 +102,21 @@ const extractCardsFromPages = async (
         ? cardIndexOnFirstPage
         : cardIndexOnSecondPage;
 
-      await getCroppedCardFromPage(
+      const cardVisibleSide = await getCroppedCardFromPage(
         pageWithVisibleSide,
-        pageWidth,
-        pageHeight,
         cardIndexOnVisiblePage
-      ).toFile(path.join(pdfCardsAssetsDir, `${cardIndex}-visible.png`));
+      );
+      await cardVisibleSide.toFile(
+        path.join(pdfCardsAssetsDir, `${cardIndex}-visible.png`)
+      );
 
-      await getCroppedCardFromPage(
+      const cardSecretSide = await getCroppedCardFromPage(
         pageWithSecretSide,
-        pageWidth,
-        pageHeight,
         cardIndexOnSecretPage
-      ).toFile(path.join(pdfCardsAssetsDir, `${cardIndex}-secret.png`));
+      );
+      await cardSecretSide.toFile(
+        path.join(pdfCardsAssetsDir, `${cardIndex}-secret.png`)
+      );
       console.info(
         `✅ "${pdfFilename}": split card ${cardIndex + 1}/${cardCount}`
       );
@@ -140,11 +129,7 @@ const extractCardsFromPages = async (
 allPdfAssetsMetadata.forEach(async (pdfAssetMetadata) => {
   const pagePaths = await convertPdfToPngPages(pdfAssetMetadata.filename);
 
-  const {
-    pages,
-    width: pageWidth,
-    height: pageHeight,
-  } = await loadPagesAndMetadata(pagePaths);
+  const pages = await loadPages(pagePaths);
 
-  await extractCardsFromPages(pdfAssetMetadata, pages, pageWidth, pageHeight);
+  await extractCardsFromPages(pdfAssetMetadata, pages);
 });
