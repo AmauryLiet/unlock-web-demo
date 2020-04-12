@@ -40,7 +40,7 @@ export const allPdfAssetsMetadata: Array<PdfAssetMetadata> = [
     filename: "1 - 5ème avenue",
     emptyCardsCountOnLastPage: 3,
     startWithSecretFaces: true,
-    introductionCards: [0, 1],
+    introductionCards: [1, 2],
     marginDetails: standardMargins,
   },
   {
