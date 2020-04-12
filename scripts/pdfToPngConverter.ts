@@ -86,12 +86,8 @@ const extractCardsFromPages = async (
       const pageWithSecretSide =
         pages[firstInterestingPageIndex + (startWithSecretFaces ? 0 : 1)];
 
-      const pageHorizontalUnit = Math.round(
-        (pageWidth - 2 * horizontalOffset) / 3
-      );
-      const pageVerticalUnit = Math.round(
-        (pageHeight - 2 * verticalOffset) / 2
-      );
+      const cardWidth = Math.round((pageWidth - 2 * horizontalOffset) / 3);
+      const cardHeight = Math.round((pageHeight - 2 * verticalOffset) / 2);
 
       const cardIndexOnFirstPage = cardIndex % CARDS_PER_PAGE;
       const cardIndexOnSecondPage =
@@ -110,12 +106,12 @@ const extractCardsFromPages = async (
         .extract({
           top:
             verticalOffset +
-            pageVerticalUnit * Math.floor(cardIndexOnVisiblePage / 3),
+            cardHeight * Math.floor(cardIndexOnVisiblePage / 3),
           left:
             horizontalOffset +
-            pageHorizontalUnit * Math.floor(cardIndexOnVisiblePage % 3),
-          width: pageHorizontalUnit,
-          height: pageVerticalUnit,
+            cardWidth * Math.floor(cardIndexOnVisiblePage % 3),
+          width: cardWidth,
+          height: cardHeight,
         })
         .toFile(path.join(pdfCardsAssetsDir, `${cardIndex}-visible.png`));
 
@@ -123,13 +119,12 @@ const extractCardsFromPages = async (
         .clone()
         .extract({
           top:
-            verticalOffset +
-            pageVerticalUnit * Math.floor(cardIndexOnSecretPage / 3),
+            verticalOffset + cardHeight * Math.floor(cardIndexOnSecretPage / 3),
           left:
             horizontalOffset +
-            pageHorizontalUnit * Math.floor(cardIndexOnSecretPage % 3),
-          width: pageHorizontalUnit,
-          height: pageVerticalUnit,
+            cardWidth * Math.floor(cardIndexOnSecretPage % 3),
+          width: cardWidth,
+          height: cardHeight,
         })
         .toFile(path.join(pdfCardsAssetsDir, `${cardIndex}-secret.png`));
       console.info(
