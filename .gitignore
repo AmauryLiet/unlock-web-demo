@@ -108,4 +108,4 @@ dist
 
 # Converted assets
 *.png
-assets/cards/metadata.json
+public/metadata.json

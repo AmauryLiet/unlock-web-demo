@@ -14,7 +14,7 @@ import {
 const assetsDir = path.join(__dirname, "../assets");
 const pdfAssetsDir = path.join(assetsDir, "./original");
 const pagesAssetsDir = path.join(assetsDir, "./pages");
-const cardsAssetsDir = path.join(assetsDir, "./cards");
+const cardsAssetsDir = path.join(__dirname, "../public");
 
 const LARGER_DIMENSION_SIZE = 1500;
 

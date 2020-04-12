@@ -11,7 +11,7 @@
     "build": "next build",
     "start": "next start",
     "script:run": "ts-node --project tsconfig.scripts.json",
-    "assets:convert_pdf": "yarn script:run scripts/pdfToPngConverter.ts && prettier assets/cards/metadata.json --write"
+    "assets:convert_pdf": "yarn script:run scripts/pdfToPngConverter.ts && prettier public/metadata.json --write"
   },
   "dependencies": {
     "next": "^9.3.4",
