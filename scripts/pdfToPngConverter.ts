@@ -1,4 +1,4 @@
-import * as fs from "fs";
+import fs from "fs";
 import path from "path";
 import PDF2Pic from "pdf2pic";
 import sharp from "sharp";
@@ -165,6 +165,11 @@ const main = async () => {
         cards: await extractCardsFromPages(pdfAssetMetadata, pages),
       };
     })
+  );
+
+  await fs.promises.writeFile(
+    path.join(cardsAssetsDir, "metadata.json"),
+    JSON.stringify(convertedAssetsMetadata)
   );
 };
 
