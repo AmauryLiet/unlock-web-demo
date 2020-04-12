@@ -40,7 +40,7 @@ export const allPdfAssetsMetadata: Array<PdfAssetMetadata> = [
     filename: "1 - 5ème avenue",
     emptyCardsCountOnLastPage: 3,
     startWithSecretFaces: true,
-    introductionCards: [1, 2],
+    introductionCards: [1, 2, 24],
     marginDetails: standardMargins,
   },
   {
@@ -61,7 +61,7 @@ export const allPdfAssetsMetadata: Array<PdfAssetMetadata> = [
     filename: "4 - A la poursuite de Cabrakan",
     emptyCardsCountOnLastPage: 0,
     startWithSecretFaces: false,
-    introductionCards: [0, 1, 2],
+    introductionCards: [0, 1, 2, 21, 22],
     marginDetails: withHeaderMargins,
   },
   {
