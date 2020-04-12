@@ -94,7 +94,8 @@ const extractCardsFromPages = async (
     emptyCardsCountOnLastPage,
   } = pdfAssetMetadata;
 
-  const pdfCardsAssetsDir = path.join(cardsAssetsDir, pdfFilename);
+  const assetsDirRelativePath = pdfFilename;
+  const pdfCardsAssetsDir = path.join(cardsAssetsDir, assetsDirRelativePath);
   if (!fs.existsSync(pdfCardsAssetsDir)) fs.mkdirSync(pdfCardsAssetsDir);
 
   const cardCount =
@@ -131,9 +132,13 @@ const extractCardsFromPages = async (
           cardIndexOnVisiblePage,
           pdfAssetMetadata.marginDetails
         );
-        const cardVisibleSidePath = path.join(
-          pdfCardsAssetsDir,
+        const visibleSideRelativePath = path.join(
+          assetsDirRelativePath,
           `${cardIndex}-visible.png`
+        );
+        const cardVisibleSidePath = path.join(
+          cardsAssetsDir,
+          visibleSideRelativePath
         );
         await cardVisibleSide.toFile(cardVisibleSidePath);
 
@@ -142,9 +147,13 @@ const extractCardsFromPages = async (
           cardIndexOnSecretPage,
           pdfAssetMetadata.marginDetails
         );
-        const cardSecretSidePath = path.join(
-          pdfCardsAssetsDir,
+        const secretSideRelativePath = path.join(
+          assetsDirRelativePath,
           `${cardIndex}-secret.png`
+        );
+        const cardSecretSidePath = path.join(
+          cardsAssetsDir,
+          secretSideRelativePath
         );
         await cardSecretSide.toFile(cardSecretSidePath);
         console.info(
@@ -152,8 +161,8 @@ const extractCardsFromPages = async (
         );
 
         return {
-          visibleSidePath: cardVisibleSidePath,
-          secretSidePath: cardSecretSidePath,
+          visibleSidePath: visibleSideRelativePath,
+          secretSidePath: secretSideRelativePath,
         };
       }
     )
