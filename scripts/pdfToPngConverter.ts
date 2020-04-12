@@ -8,6 +8,8 @@ import {
   PDF_VERTICAL_MARGIN,
   allPdfAssetsMetadata,
   PdfAssetMetadata,
+  COLUMN_COUNT_PER_PAGE,
+  ROW_COUNT_PER_PAGE,
 } from "../assets/original";
 
 const assetsDir = path.join(__dirname, "../assets");
@@ -54,12 +56,20 @@ const getCroppedCardFromPage = async (page: any, cardIndex: number) => {
   const horizontalOffset = Math.round(PDF_HORIZONTAL_MARGIN * width),
     verticalOffset = Math.round(PDF_VERTICAL_MARGIN * height);
 
-  const cardWidth = Math.round((width - 2 * horizontalOffset) / 3);
-  const cardHeight = Math.round((height - 2 * verticalOffset) / 2);
+  const cardWidth = Math.round(
+    (width - 2 * horizontalOffset) / COLUMN_COUNT_PER_PAGE
+  );
+  const cardHeight = Math.round(
+    (height - 2 * verticalOffset) / ROW_COUNT_PER_PAGE
+  );
 
   return page.clone().extract({
-    top: verticalOffset + cardHeight * Math.floor(cardIndex / 3),
-    left: horizontalOffset + cardWidth * Math.floor(cardIndex % 3),
+    top:
+      verticalOffset +
+      cardHeight * Math.floor(cardIndex / COLUMN_COUNT_PER_PAGE),
+    left:
+      horizontalOffset +
+      cardWidth * Math.floor(cardIndex % COLUMN_COUNT_PER_PAGE),
     width: cardWidth,
     height: cardHeight,
   });
@@ -93,8 +103,11 @@ const extractCardsFromPages = async (
 
       const cardIndexOnFirstPage = cardIndex % CARD_COUNT_PER_PAGE;
       const cardIndexOnSecondPage =
-        Math.floor(cardIndexOnFirstPage / 3) * 3 +
-        (2 - (cardIndexOnFirstPage % 3));
+        COLUMN_COUNT_PER_PAGE *
+          Math.floor(cardIndexOnFirstPage / COLUMN_COUNT_PER_PAGE) +
+        (COLUMN_COUNT_PER_PAGE -
+          (cardIndexOnFirstPage % COLUMN_COUNT_PER_PAGE) -
+          1);
 
       const cardIndexOnVisiblePage = startWithSecretFaces
         ? cardIndexOnSecondPage
