@@ -149,10 +149,16 @@ const extractCardsFromPages = async (
   );
 };
 
-allPdfAssetsMetadata.forEach(async (pdfAssetMetadata) => {
-  const pagePaths = await convertPdfToPngPages(pdfAssetMetadata.filename);
+const main = async () => {
+  const convertedAssetsMetadata = await Promise.all(
+    allPdfAssetsMetadata.map(async (pdfAssetMetadata) => {
+      const pagePaths = await convertPdfToPngPages(pdfAssetMetadata.filename);
 
-  const pages = pagePaths.map((path) => sharp(path));
+      const pages = pagePaths.map((path) => sharp(path));
 
-  await extractCardsFromPages(pdfAssetMetadata, pages);
-});
+      return await extractCardsFromPages(pdfAssetMetadata, pages);
+    })
+  );
+};
+
+main();
