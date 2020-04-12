@@ -24,6 +24,10 @@ interface CardMetadata {
   cardVisibleSidePath: string;
   cardSecretSidePath: string;
 }
+interface ConvertedAssetsMetadata {
+  scenarioPublicName: string;
+  cards: CardMetadata[];
+}
 
 const convertPdfToPngPages = async (
   pdfFilename: string
@@ -150,13 +154,16 @@ const extractCardsFromPages = async (
 };
 
 const main = async () => {
-  const convertedAssetsMetadata = await Promise.all(
+  const convertedAssetsMetadata: ConvertedAssetsMetadata[] = await Promise.all(
     allPdfAssetsMetadata.map(async (pdfAssetMetadata) => {
       const pagePaths = await convertPdfToPngPages(pdfAssetMetadata.filename);
 
       const pages = pagePaths.map((path) => sharp(path));
 
-      return await extractCardsFromPages(pdfAssetMetadata, pages);
+      return {
+        scenarioPublicName: pdfAssetMetadata.filename,
+        cards: await extractCardsFromPages(pdfAssetMetadata, pages),
+      };
     })
   );
 };
