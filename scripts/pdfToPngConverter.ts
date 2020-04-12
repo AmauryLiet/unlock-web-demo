@@ -25,7 +25,8 @@ interface CardMetadata {
 }
 interface ConvertedAssetsMetadata {
   scenarioPublicName: string;
-  cards: CardMetadata[];
+  introCards: CardMetadata[];
+  numberedCards: CardMetadata[];
 }
 
 const convertPdfToPngPages = async (
@@ -166,9 +167,17 @@ const main = async () => {
 
       const pages = pagePaths.map((path) => sharp(path));
 
+      const allCards = await extractCardsFromPages(pdfAssetMetadata, pages);
+
       return {
         scenarioPublicName: pdfAssetMetadata.filename,
-        cards: await extractCardsFromPages(pdfAssetMetadata, pages),
+        introCards: pdfAssetMetadata.introductionCards.map(
+          (introCardIndex) => allCards[introCardIndex]
+        ),
+        numberedCards: allCards.filter(
+          (_, cardIndex) =>
+            !pdfAssetMetadata.introductionCards.includes(cardIndex)
+        ),
       };
     })
   );
