@@ -28,6 +28,7 @@ export default () => {
           <ScenarioCard
             key={scenarioMetadata.scenarioPublicName}
             scenarioMetadata={scenarioMetadata}
+            href={`/scenario/${scenarioMetadata.scenarioPublicName}`}
           />
         ))}
       </div>
