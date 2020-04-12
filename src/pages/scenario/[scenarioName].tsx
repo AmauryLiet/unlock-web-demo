@@ -1,23 +1,20 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { ConvertedAssetsMetadata } from "../../../scripts/pdfToPngConverter";
-
-const allConvertedAssetsMetadata: ConvertedAssetsMetadata[] = require("../../../public/metadata.json");
+import { getMetadataForName } from "../../tools/metadataHandling";
 
 export default () => {
   const router = useRouter();
   const { scenarioName } = router.query;
 
-  const scenarioAssetsMetadata = allConvertedAssetsMetadata.find(
-    (convertedAssetsMetadata) =>
-      convertedAssetsMetadata.scenarioPublicName === scenarioName
-  );
+  if (typeof scenarioName != "string") {
+    return <div>{`Error: invalid path "${scenarioName}"`}</div>;
+  }
+
+  const scenarioAssetsMetadata = getMetadataForName(scenarioName);
 
   if (!scenarioAssetsMetadata) {
     return (
-      <div>{`Error: could not find assets with name "${scenarioName}". Available ones: ${allConvertedAssetsMetadata.map(
-        (data) => data.scenarioPublicName
-      )}`}</div>
+      <div>{`Error: could not find assets with name "${scenarioName}"`}</div>
     );
   }
 

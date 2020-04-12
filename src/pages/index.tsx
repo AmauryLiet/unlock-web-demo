@@ -1,10 +1,8 @@
 import Head from "next/head";
 import React from "react";
 
-import { ConvertedAssetsMetadata } from "../../scripts/pdfToPngConverter";
-const convertedAssetsMetadata: ConvertedAssetsMetadata[] = require("../../public/metadata.json");
-
 import ScenarioCard from "../components/ScenarioCard";
+import { getAllMetadata } from "../tools/metadataHandling";
 
 export default () => {
   return (
@@ -24,7 +22,7 @@ export default () => {
       <h1>Unlock</h1>
       <h2>Scénarios</h2>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {convertedAssetsMetadata.map((scenarioMetadata) => (
+        {getAllMetadata().map((scenarioMetadata) => (
           <ScenarioCard
             key={scenarioMetadata.scenarioPublicName}
             scenarioMetadata={scenarioMetadata}
