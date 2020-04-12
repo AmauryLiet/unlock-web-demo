@@ -4,12 +4,11 @@ import PDF2Pic from "pdf2pic";
 import sharp from "sharp";
 import {
   CARD_COUNT_PER_PAGE,
-  PDF_HORIZONTAL_MARGIN,
-  PDF_VERTICAL_MARGIN,
   allPdfAssetsMetadata,
   PdfAssetMetadata,
   COLUMN_COUNT_PER_PAGE,
   ROW_COUNT_PER_PAGE,
+  MarginDetails,
 } from "../assets/original";
 
 const assetsDir = path.join(__dirname, "../assets");
@@ -54,23 +53,28 @@ const convertPdfToPngPages = async (
   }
 };
 
-const getCroppedCardFromPage = async (page: any, cardIndex: number) => {
+const getCroppedCardFromPage = async (
+  page: any,
+  cardIndex: number,
+  marginDetails: MarginDetails
+) => {
   const { width, height } = await page.metadata();
 
-  const horizontalOffset = Math.round(PDF_HORIZONTAL_MARGIN * width),
-    verticalOffset = Math.round(PDF_VERTICAL_MARGIN * height);
+  const horizontalOffset = Math.round(
+      (marginDetails.horizontalPercentage * width) / 100
+    ),
+    topOffset = Math.round((marginDetails.topPercentage * height) / 100),
+    bottomOffset = Math.round((marginDetails.bottomPercentage * height) / 100);
 
   const cardWidth = Math.round(
     (width - 2 * horizontalOffset) / COLUMN_COUNT_PER_PAGE
   );
   const cardHeight = Math.round(
-    (height - 2 * verticalOffset) / ROW_COUNT_PER_PAGE
+    (height - topOffset - bottomOffset) / ROW_COUNT_PER_PAGE
   );
 
   return page.clone().extract({
-    top:
-      verticalOffset +
-      cardHeight * Math.floor(cardIndex / COLUMN_COUNT_PER_PAGE),
+    top: topOffset + cardHeight * Math.floor(cardIndex / COLUMN_COUNT_PER_PAGE),
     left:
       horizontalOffset +
       cardWidth * Math.floor(cardIndex % COLUMN_COUNT_PER_PAGE),
@@ -123,7 +127,8 @@ const extractCardsFromPages = async (
 
         const cardVisibleSide = await getCroppedCardFromPage(
           pageWithVisibleSide,
-          cardIndexOnVisiblePage
+          cardIndexOnVisiblePage,
+          pdfAssetMetadata.marginDetails
         );
         const cardVisibleSidePath = path.join(
           pdfCardsAssetsDir,
@@ -133,7 +138,8 @@ const extractCardsFromPages = async (
 
         const cardSecretSide = await getCroppedCardFromPage(
           pageWithSecretSide,
-          cardIndexOnSecretPage
+          cardIndexOnSecretPage,
+          pdfAssetMetadata.marginDetails
         );
         const cardSecretSidePath = path.join(
           pdfCardsAssetsDir,
