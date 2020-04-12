@@ -14,12 +14,7 @@ export default ({ scenarioMetadata }: Props) => {
           alt="my image"
           style={{ height: 500 }}
         />
-        <span
-          style={{
-            textAlign: "center",
-            fontFamily: "Roboto, sans-serif",
-          }}
-        >
+        <span style={{ textAlign: "center" }}>
           {scenarioMetadata.scenarioPublicName}
         </span>
       </div>
