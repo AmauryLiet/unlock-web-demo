@@ -2,12 +2,14 @@ export const CARDS_PER_PAGE = 6;
 export const PDF_VERTICAL_MARGIN = 8.7 / 100;
 export const PDF_HORIZONTAL_MARGIN = 6 / 100;
 
-export const pdfAssetsMetadata: Array<{
+interface PdfAssetMetadata {
   filename: string;
   emptyCardsCountOnLastPage: number;
   startWithSecretFaces: boolean;
   introductionCardsCount: number;
-}> = [
+}
+
+export const allPdfAssetsMetadata: Array<PdfAssetMetadata> = [
   {
     filename: "0 - tutorial",
     emptyCardsCountOnLastPage: 2,

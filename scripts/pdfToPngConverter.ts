@@ -5,7 +5,7 @@ import sharp from "sharp";
 import {
   PDF_HORIZONTAL_MARGIN,
   PDF_VERTICAL_MARGIN,
-  pdfAssetsMetadata,
+  allPdfAssetsMetadata,
 } from "../assets/original";
 
 const assetsDir = path.join(__dirname, "../assets");
@@ -72,7 +72,7 @@ const extractCardsFromPages = async (
   return [];
 };
 
-pdfAssetsMetadata.forEach(
+allPdfAssetsMetadata.forEach(
   async ({ filename: pdfFilename, emptyCardsCountOnLastPage }) => {
     const pagePaths = await convertPdfToPngPages(pdfFilename);
 
