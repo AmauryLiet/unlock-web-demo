@@ -69,12 +69,17 @@ const extractCardsFromPages = async (
   pdfAssetMetadata: PdfAssetMetadata,
   pages: any
 ): Promise<CardsMetadata> => {
-  const { filename: pdfFilename, startWithSecretFaces } = pdfAssetMetadata;
+  const {
+    filename: pdfFilename,
+    startWithSecretFaces,
+    emptyCardsCountOnLastPage,
+  } = pdfAssetMetadata;
 
   const pdfCardsAssetsDir = path.join(cardsAssetsDir, pdfFilename);
   if (!fs.existsSync(pdfCardsAssetsDir)) fs.mkdirSync(pdfCardsAssetsDir);
 
-  const cardCount = (pages.length / 2) * CARDS_PER_PAGE;
+  const cardCount =
+    (pages.length / 2) * CARDS_PER_PAGE - emptyCardsCountOnLastPage;
 
   await Promise.all(
     [...Array(cardCount)].map(async (_, cardIndex) => {
