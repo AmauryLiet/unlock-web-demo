@@ -1,4 +1,5 @@
 import Head from "next/head";
+import React from "react";
 
 import { ConvertedAssetsMetadata } from "../scripts/pdfToPngConverter";
 const convertedAssetsMetadata: ConvertedAssetsMetadata[] = require("../public/metadata.json");
