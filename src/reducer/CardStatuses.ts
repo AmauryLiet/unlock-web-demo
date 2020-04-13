@@ -156,12 +156,21 @@ const getVisibleIntroCards = (state: State) =>
     (cardMetadata) =>
       state.introCardsStatus[cardMetadata.id] !== CardStatus.DISCARDED
   );
+const getIntroCardsByStatus = (state: State, status: CardStatus) =>
+  getAllIntroCards(state).filter(
+    (cardMetadata) => state.introCardsStatus[cardMetadata.id] === status
+  );
 const getNumberedCardsByStatus = (state: State, status: CardStatus) =>
   getAllNumberedCards(state).filter(
     (cardMetadata) => state.numberedCardsStatus[cardMetadata.id] === status
   );
+const getAllCardsByStatus = (state: State, status: CardStatus) => [
+  ...getIntroCardsByStatus(state, status),
+  ...getNumberedCardsByStatus(state, status),
+];
 
 export const cardStatusSelectors = {
   getVisibleIntroCards,
   getNumberedCardsByStatus,
+  getAllCardsByStatus,
 };

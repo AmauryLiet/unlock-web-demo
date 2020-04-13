@@ -106,6 +106,22 @@ export default () => {
             </CardPictureWithFooter>
           ))}
       </CardList>
+      <h3>Cartes supprimées 🗑</h3>
+      <CardList>
+        {cardStatusSelectors
+          .getAllCardsByStatus(store, CardStatus.DISCARDED)
+          .map((cardMetadata) => (
+            <CardPictureWithFooter
+              key={cardMetadata.visibleSidePath}
+              cardMetadata={cardMetadata}
+              alt="Discarded card"
+              picSize={PictureSizes.small}
+              showSecretSide
+            >
+              <span>Restaurer</span>
+            </CardPictureWithFooter>
+          ))}
+      </CardList>
     </div>
   );
 };
