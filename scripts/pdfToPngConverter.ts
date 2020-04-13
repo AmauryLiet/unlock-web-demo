@@ -19,7 +19,7 @@ const cardsAssetsDir = path.join(__dirname, "../public");
 const LARGER_DIMENSION_SIZE = 1500;
 
 type PagePaths = string[];
-interface CardMetadata {
+export interface CardMetadata {
   visibleSidePath: string;
   secretSidePath: string;
 }

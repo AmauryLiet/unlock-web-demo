@@ -38,34 +38,29 @@ export default () => {
       <h3>Initial pages paths</h3>
       <CardList>
         {state.scenarioAssetsMetadata.introCards.map(
-          (cardMetadata, introCardIndex) => {
-            const assetPath = {
-              [CardStatus.VISIBLE_FACE]: cardMetadata.visibleSidePath,
-              [CardStatus.SECRET_FACE]: cardMetadata.secretSidePath,
-              [CardStatus.AVAILABLE]: cardMetadata.visibleSidePath,
-              [CardStatus.DISCARDED]: cardMetadata.visibleSidePath,
-            }[state.introCardsStatus[introCardIndex]];
-
-            return (
-              <div
-                key={assetPath}
-                style={{ display: "flex", flexDirection: "column" }}
-                onClick={() =>
-                  dispatch({
-                    type: ActionName.TOGGLE_INTRO_CARD,
-                    introCardIndex,
-                  })
+          (cardMetadata, introCardIndex) => (
+            <div
+              key={cardMetadata.visibleSidePath}
+              style={{ display: "flex", flexDirection: "column" }}
+              onClick={() =>
+                dispatch({
+                  type: ActionName.TOGGLE_INTRO_CARD,
+                  introCardIndex,
+                })
+              }
+            >
+              <CardPicture
+                cardMetadata={cardMetadata}
+                alt="Introduction card"
+                size={PictureSizes.medium}
+                showSecretSide={
+                  CardStatus.SECRET_FACE ===
+                  state.introCardsStatus[introCardIndex]
                 }
-              >
-                <CardPicture
-                  src={`/${assetPath}`}
-                  alt="Introduction card"
-                  size={PictureSizes.medium}
-                />
-                <span>{state.introCardsStatus[introCardIndex]}</span>
-              </div>
-            );
-          }
+              />
+              <span>{state.introCardsStatus[introCardIndex]}</span>
+            </div>
+          )
         )}
       </CardList>
       <h3>Additional pages paths</h3>
@@ -77,7 +72,7 @@ export default () => {
               style={{ display: "flex", flexDirection: "column" }}
             >
               <CardPicture
-                src={`/${cardMetadata.visibleSidePath}`}
+                cardMetadata={cardMetadata}
                 alt="Available card"
                 size={PictureSizes.small}
               />

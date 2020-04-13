@@ -1,4 +1,5 @@
 import React from "react";
+import { CardMetadata } from "../../scripts/pdfToPngConverter";
 
 export enum PictureSizes {
   small = "small",
@@ -6,9 +7,10 @@ export enum PictureSizes {
 }
 
 interface Props {
-  src: string;
+  cardMetadata: CardMetadata;
   alt: string;
   size: PictureSizes;
+  showSecretSide?: boolean;
 }
 
 const heightMapping: { [key in PictureSizes]: number } = {
@@ -16,8 +18,32 @@ const heightMapping: { [key in PictureSizes]: number } = {
   [PictureSizes.medium]: 500,
 };
 
-export default ({ src, alt, size }: Props) => {
+export default ({ cardMetadata, alt, size, showSecretSide = false }: Props) => {
   const height = heightMapping[size];
 
-  return <img src={src} alt={alt} style={{ height }} />;
+  return (
+    <>
+      <img
+        src={`/${cardMetadata.secretSidePath}`}
+        alt={alt}
+        style={{
+          height,
+          position: "absolute",
+          opacity: showSecretSide ? 1 : 0,
+        }}
+      />
+      <img
+        src={`/${cardMetadata.visibleSidePath}`}
+        alt={alt}
+        style={{
+          height,
+        }}
+      />
+      <style jsx>{`
+        img {
+          transition: opacity 100ms;
+        }
+      `}</style>
+    </>
+  );
 };

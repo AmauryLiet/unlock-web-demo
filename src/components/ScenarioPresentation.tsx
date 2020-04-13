@@ -17,7 +17,7 @@ export default ({ scenarioMetadata, href }: Props) => {
           style={{ display: "flex", flexDirection: "column" }}
         >
           <CardPicture
-            src={`/${scenarioMetadata.introCards[0].visibleSidePath}`}
+            cardMetadata={scenarioMetadata.introCards[0]}
             alt="my image"
             size={PictureSizes.medium}
           />
