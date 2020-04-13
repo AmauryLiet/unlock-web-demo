@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useReducer } from "react";
+import CardList from "../../components/CardList";
 import CardPicture, { PictureSizes } from "../../components/CardPicture";
 import {
   initCardStatusReducer,
@@ -29,7 +30,7 @@ export default () => {
     <div>
       <h2>{scenarioName}</h2>
       <h3>Initial pages paths</h3>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <CardList>
         {state.scenarioAssetsMetadata.introCards.map(
           (cardMetadata, introCardIndex) => (
             <div
@@ -45,9 +46,9 @@ export default () => {
             </div>
           )
         )}
-      </div>
+      </CardList>
       <h3>Additional pages paths</h3>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <CardList>
         {state.scenarioAssetsMetadata.numberedCards.map(
           (cardMetadata, numberedCardIndex) => (
             <div
@@ -63,7 +64,7 @@ export default () => {
             </div>
           )
         )}
-      </div>
+      </CardList>
     </div>
   );
 };
