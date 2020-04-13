@@ -22,26 +22,24 @@ export default ({ cardMetadata, alt, size, showSecretSide = false }: Props) => {
   const height = heightMapping[size];
 
   return (
-    <>
+    <div className="cardPicture">
       <img
+        className="secretSide"
         src={`/${cardMetadata.secretSidePath}`}
         alt={alt}
-        style={{
-          height,
-          position: "absolute",
-          opacity: showSecretSide ? 1 : 0,
-        }}
       />
-      <img
-        src={`/${cardMetadata.visibleSidePath}`}
-        alt={alt}
-        style={{
-          height,
-        }}
-      />
+      <img src={`/${cardMetadata.visibleSidePath}`} alt={alt} />
       <style jsx>{`
+        .cardPicture {
+          height: ${height}px;
+        }
         img {
           transition: opacity 100ms;
+          height: ${height}px;
+        }
+        img.secretSide {
+          position: absolute;
+          opacity: ${showSecretSide ? 1 : 0};
         }
         div {
           border: 3px solid transparent;
@@ -50,6 +48,6 @@ export default ({ cardMetadata, alt, size, showSecretSide = false }: Props) => {
           border-color: darkgrey;
         }
       `}</style>
-    </>
+    </div>
   );
 };
