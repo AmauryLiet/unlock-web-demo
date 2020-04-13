@@ -68,8 +68,7 @@ export const cardStatusReducer = (state: State, action: Action): State => {
       return initCardStatusReducer(action.scenarioName);
 
     case ActionName.TOGGLE_INTRO_CARD:
-      const introCardsStatus = { ...state.introCardsStatus };
-      const previousCardStatus = introCardsStatus[action.introCardId];
+      const previousCardStatus = state.introCardsStatus[action.introCardId];
       const newCardStatus = {
         [CardStatus.VISIBLE_FACE]: CardStatus.SECRET_FACE,
         [CardStatus.SECRET_FACE]: CardStatus.VISIBLE_FACE,
@@ -82,10 +81,12 @@ export const cardStatusReducer = (state: State, action: Action): State => {
         return state;
       }
 
-      introCardsStatus[action.introCardId] = newCardStatus;
       return {
         ...state,
-        introCardsStatus,
+        introCardsStatus: {
+          ...state.introCardsStatus,
+          [action.introCardId]: newCardStatus,
+        },
       };
 
     default:
