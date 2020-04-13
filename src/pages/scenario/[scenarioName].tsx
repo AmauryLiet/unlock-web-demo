@@ -27,10 +27,10 @@ export default () => {
       introCardId,
     });
   }, []);
-  const revealNumberedCard = useCallback((numberedCardId: string) => {
+  const revealCard = useCallback((cardId: string) => {
     dispatch({
-      type: ActionName.REVEAL_NUMBERED_CARD,
-      numberedCardId,
+      type: ActionName.REVEAL_CARD,
+      cardId,
     });
   }, []);
   const discardCard = useCallback((cardId: string) => {
@@ -100,9 +100,7 @@ export default () => {
               alt="Available card"
               picSize={PictureSizes.small}
             >
-              <span onClick={() => revealNumberedCard(cardMetadata.id)}>
-                Retourner
-              </span>
+              <span onClick={() => revealCard(cardMetadata.id)}>Retourner</span>
             </CardPictureWithFooter>
           ))}
       </CardList>
@@ -118,7 +116,7 @@ export default () => {
               picSize={PictureSizes.small}
               showSecretSide
             >
-              <span>Restaurer</span>
+              <span onClick={() => revealCard(cardMetadata.id)}>Restaurer</span>
             </CardPictureWithFooter>
           ))}
       </CardList>

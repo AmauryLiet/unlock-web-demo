@@ -18,7 +18,7 @@ interface State {
 export enum ActionName {
   REINIT,
   TOGGLE_INTRO_CARD,
-  REVEAL_NUMBERED_CARD,
+  REVEAL_CARD,
   DISCARD_CARD,
 }
 
@@ -32,8 +32,8 @@ type Action =
       introCardId: string;
     }
   | {
-      type: ActionName.REVEAL_NUMBERED_CARD;
-      numberedCardId: string;
+      type: ActionName.REVEAL_CARD;
+      cardId: string;
     }
   | {
       type: ActionName.DISCARD_CARD;
@@ -99,24 +99,40 @@ export const cardStatusReducer = (state: State, action: Action): State => {
         },
       };
 
-    case ActionName.REVEAL_NUMBERED_CARD:
-      const cardFormerStatus = state.numberedCardsStatus[action.numberedCardId];
+    case ActionName.REVEAL_CARD:
+      const isIntroCard = state.scenarioAssetsMetadata.introCards
+        .map((card) => card.id)
+        .includes(action.cardId);
+
+      const cardFormerStatus = (isIntroCard
+        ? state.introCardsStatus
+        : state.numberedCardsStatus)[action.cardId];
       const expectedFormerStatuses = [
         CardStatus.VISIBLE_FACE,
         CardStatus.AVAILABLE,
       ];
       if (!expectedFormerStatuses.includes(cardFormerStatus))
         console.warn(
-          `Tried to reveal a non visible card "${action.numberedCardId}" was "${cardFormerStatus}"`
+          `Tried to reveal a non visible card "${action.cardId}" was "${cardFormerStatus}"`
         );
 
-      return {
-        ...state,
-        numberedCardsStatus: {
-          ...state.numberedCardsStatus,
-          [action.numberedCardId]: CardStatus.SECRET_FACE,
-        },
-      };
+      if (isIntroCard) {
+        return {
+          ...state,
+          introCardsStatus: {
+            ...state.introCardsStatus,
+            [action.cardId]: CardStatus.SECRET_FACE,
+          },
+        };
+      } else {
+        return {
+          ...state,
+          numberedCardsStatus: {
+            ...state.numberedCardsStatus,
+            [action.cardId]: CardStatus.SECRET_FACE,
+          },
+        };
+      }
 
     case ActionName.DISCARD_CARD:
       if (
