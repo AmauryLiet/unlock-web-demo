@@ -63,10 +63,37 @@ export default () => {
           )
         )}
       </CardList>
+      <h3>Cartes retournées 👀</h3>
+      <CardList>
+        {state.scenarioAssetsMetadata.numberedCards
+          .filter(
+            (_, numberedCardIndex) =>
+              state.numberedCardsStatus[numberedCardIndex] ===
+              CardStatus.SECRET_FACE
+          )
+          .map((cardMetadata) => (
+            <div
+              key={cardMetadata.visibleSidePath}
+              style={{ display: "flex", flexDirection: "column" }}
+            >
+              <CardPicture
+                cardMetadata={cardMetadata}
+                alt="Flipped card"
+                size={PictureSizes.medium}
+              />
+              <span>Jeter</span>
+            </div>
+          ))}
+      </CardList>
       <h3>Cartes dispos 🃏</h3>
       <CardList>
-        {state.scenarioAssetsMetadata.numberedCards.map(
-          (cardMetadata, numberedCardIndex) => (
+        {state.scenarioAssetsMetadata.numberedCards
+          .filter(
+            (_, numberedCardIndex) =>
+              state.numberedCardsStatus[numberedCardIndex] ===
+              CardStatus.AVAILABLE
+          )
+          .map((cardMetadata) => (
             <div
               key={cardMetadata.visibleSidePath}
               style={{ display: "flex", flexDirection: "column" }}
@@ -76,10 +103,9 @@ export default () => {
                 alt="Available card"
                 size={PictureSizes.small}
               />
-              <span>{state.numberedCardsStatus[numberedCardIndex]}</span>
+              <span>Retourner</span>
             </div>
-          )
-        )}
+          ))}
       </CardList>
     </div>
   );
