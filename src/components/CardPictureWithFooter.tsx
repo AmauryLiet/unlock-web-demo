@@ -8,6 +8,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   alt: string;
   children: React.ReactNode;
   showSecretSide?: boolean;
+  onCardPictureClick?: () => void;
 }
 
 export default ({
@@ -16,6 +17,7 @@ export default ({
   alt,
   showSecretSide,
   children,
+  onCardPictureClick,
 
   style,
   ...divProps
@@ -30,6 +32,7 @@ export default ({
         alt={alt}
         size={picSize}
         showSecretSide={showSecretSide}
+        onClick={onCardPictureClick}
       />
       {children}
     </div>

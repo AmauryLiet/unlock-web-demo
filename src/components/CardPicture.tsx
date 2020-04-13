@@ -6,7 +6,7 @@ export enum PictureSizes {
   medium = "medium",
 }
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   cardMetadata: CardMetadata;
   alt: string;
   size: PictureSizes;
@@ -18,11 +18,17 @@ const heightMapping: { [key in PictureSizes]: number } = {
   [PictureSizes.medium]: 500,
 };
 
-export default ({ cardMetadata, alt, size, showSecretSide = false }: Props) => {
+export default ({
+  cardMetadata,
+  alt,
+  size,
+  showSecretSide = false,
+  ...divProps
+}: Props) => {
   const height = heightMapping[size];
 
   return (
-    <div className="cardPicture">
+    <div {...divProps}>
       <img
         className="secretSide"
         src={`/${cardMetadata.secretSidePath}`}
@@ -30,7 +36,7 @@ export default ({ cardMetadata, alt, size, showSecretSide = false }: Props) => {
       />
       <img src={`/${cardMetadata.visibleSidePath}`} alt={alt} />
       <style jsx>{`
-        .cardPicture {
+        div {
           height: ${height}px;
         }
         img {

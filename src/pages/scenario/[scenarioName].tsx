@@ -61,7 +61,7 @@ export default () => {
         {cardStatusSelectors.getVisibleIntroCards(state).map((cardMetadata) => (
           <CardPictureWithFooter
             key={cardMetadata.visibleSidePath}
-            onClick={() => flipIntroCard(cardMetadata.id)}
+            onCardPictureClick={() => flipIntroCard(cardMetadata.id)}
             cardMetadata={cardMetadata}
             alt="Introduction card"
             picSize={PictureSizes.medium}
