@@ -14,9 +14,14 @@ interface State {
   numberedCardsStatus: CardStatus[];
 }
 
-interface Action {
-  type: string;
+export enum ActionName {
+  REINIT,
 }
+
+type Action = {
+  type: ActionName.REINIT;
+  scenarioName: string;
+};
 
 export const initCardStatusReducer = (
   scenarioName: string | string[] | undefined
@@ -44,6 +49,8 @@ export const initCardStatusReducer = (
 
 export const cardStatusReducer = (state: State, action: Action): State => {
   switch (action.type) {
+    case ActionName.REINIT:
+      return initCardStatusReducer(action.scenarioName);
     default:
       throw new Error();
   }

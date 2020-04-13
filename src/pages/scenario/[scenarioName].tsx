@@ -5,18 +5,12 @@ import CardPicture, { PictureSizes } from "../../components/CardPicture";
 import {
   initCardStatusReducer,
   cardStatusReducer,
+  ActionName,
 } from "../../reducer/CardStatuses";
 
 export default () => {
   const router = useRouter();
   const { scenarioName } = router.query;
-
-  if (!scenarioName) {
-    // FIXME Next issue :( https://github.com/zeit/next.js/issues/11201
-    //  this workaround is made to ensure proper state initialization, but causes:
-    //  "React has detected a change in the order of Hooks called. This will lead to bugs and errors if not fixed. See https://fb.me/rules-of-hooks"
-    return <div>Loading...</div>;
-  }
 
   const [state, dispatch] = useReducer(
     cardStatusReducer,
@@ -24,7 +18,18 @@ export default () => {
     initCardStatusReducer
   );
 
-  if (!state) return <div>Error</div>;
+  if (!state) {
+    if (typeof scenarioName === "string") {
+      // FIXME Next issue :( https://github.com/zeit/next.js/issues/11201
+      //  this workaround is made to ensure proper state initialization at 2nd render
+      dispatch({
+        type: ActionName.REINIT,
+        scenarioName,
+      });
+    }
+
+    return <div>Error: Could not initialize state</div>;
+  }
 
   return (
     <div>
