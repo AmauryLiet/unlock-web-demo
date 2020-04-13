@@ -16,12 +16,18 @@ interface State {
 
 export enum ActionName {
   REINIT,
+  TOGGLE_INTRO_CARD,
 }
 
-type Action = {
-  type: ActionName.REINIT;
-  scenarioName: string;
-};
+type Action =
+  | {
+      type: ActionName.REINIT;
+      scenarioName: string;
+    }
+  | {
+      type: ActionName.TOGGLE_INTRO_CARD;
+      introCardIndex: number;
+    };
 
 export const initCardStatusReducer = (
   scenarioName: string | string[] | undefined
@@ -51,6 +57,28 @@ export const cardStatusReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case ActionName.REINIT:
       return initCardStatusReducer(action.scenarioName);
+
+    case ActionName.TOGGLE_INTRO_CARD:
+      const introCardsStatus = [...state.introCardsStatus];
+      const previousCardStatus = introCardsStatus[action.introCardIndex];
+      const newCardStatus = {
+        [CardStatus.VISIBLE_FACE]: CardStatus.SECRET_FACE,
+        [CardStatus.SECRET_FACE]: CardStatus.VISIBLE_FACE,
+      }[previousCardStatus];
+
+      if (!newCardStatus) {
+        console.error(
+          `ERROR: cannot toggle card which was previously "${previousCardStatus}"`
+        );
+        return state;
+      }
+
+      introCardsStatus[action.introCardIndex] = newCardStatus;
+      return {
+        ...state,
+        introCardsStatus,
+      };
+
     default:
       throw new Error();
   }
