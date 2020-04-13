@@ -18,6 +18,7 @@ interface State {
 export enum ActionName {
   REINIT,
   TOGGLE_INTRO_CARD,
+  REVEAL_NUMBERED_CARD,
 }
 
 type Action =
@@ -28,6 +29,10 @@ type Action =
   | {
       type: ActionName.TOGGLE_INTRO_CARD;
       introCardId: string;
+    }
+  | {
+      type: ActionName.REVEAL_NUMBERED_CARD;
+      numberedCardId: string;
     };
 
 export const initCardStatusReducer = (
@@ -86,6 +91,25 @@ export const cardStatusReducer = (state: State, action: Action): State => {
         introCardsStatus: {
           ...state.introCardsStatus,
           [action.introCardId]: newCardStatus,
+        },
+      };
+
+    case ActionName.REVEAL_NUMBERED_CARD:
+      const cardFormerStatus = state.numberedCardsStatus[action.numberedCardId];
+      const expectedFormerStatuses = [
+        CardStatus.VISIBLE_FACE,
+        CardStatus.AVAILABLE,
+      ];
+      if (!expectedFormerStatuses.includes(cardFormerStatus))
+        console.warn(
+          `Tried to reveal a non visible card "${action.numberedCardId}" was "${cardFormerStatus}"`
+        );
+
+      return {
+        ...state,
+        numberedCardsStatus: {
+          ...state.numberedCardsStatus,
+          [action.numberedCardId]: CardStatus.SECRET_FACE,
         },
       };
 

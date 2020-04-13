@@ -27,6 +27,12 @@ export default () => {
       introCardId,
     });
   }, []);
+  const revealNumberedCard = useCallback((numberedCardId: string) => {
+    dispatch({
+      type: ActionName.REVEAL_NUMBERED_CARD,
+      numberedCardId,
+    });
+  }, []);
 
   if (!state) {
     if (typeof scenarioName === "string") {
@@ -87,7 +93,9 @@ export default () => {
               alt="Available card"
               picSize={PictureSizes.small}
             >
-              <span>Retourner</span>
+              <span onClick={() => revealNumberedCard(cardMetadata.id)}>
+                Retourner
+              </span>
             </CardPictureWithFooter>
           ))}
       </CardList>
