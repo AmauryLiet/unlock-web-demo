@@ -93,3 +93,17 @@ export const cardStatusReducer = (state: State, action: Action): State => {
       throw new Error();
   }
 };
+
+const getIntroCards = (state: State) => state.scenarioAssetsMetadata.introCards;
+const getAllNumberedCards = (state: State) =>
+  state.scenarioAssetsMetadata.numberedCards;
+
+const getNumberedCardsByStatus = (state: State, status: CardStatus) =>
+  getAllNumberedCards(state).filter(
+    (cardMetadata) => state.numberedCardsStatus[cardMetadata.id] === status
+  );
+
+export const cardStatusSelectors = {
+  getIntroCards,
+  getNumberedCardsByStatus,
+};

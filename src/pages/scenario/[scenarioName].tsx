@@ -4,10 +4,11 @@ import CardList from "../../components/CardList";
 import { PictureSizes } from "../../components/CardPicture";
 import CardPictureWithFooter from "../../components/CardPictureWithFooter";
 import {
-  initCardStatusReducer,
-  cardStatusReducer,
   ActionName,
   CardStatus,
+  cardStatusReducer,
+  cardStatusSelectors,
+  initCardStatusReducer,
 } from "../../reducer/CardStatuses";
 
 export default () => {
@@ -45,7 +46,7 @@ export default () => {
       <h2>{scenarioName}</h2>
       <h3>Cartes de départ 🏡</h3>
       <CardList>
-        {state.scenarioAssetsMetadata.introCards.map((cardMetadata) => (
+        {cardStatusSelectors.getIntroCards(state).map((cardMetadata) => (
           <CardPictureWithFooter
             key={cardMetadata.visibleSidePath}
             onClick={() => flipIntroCard(cardMetadata.id)}
@@ -62,12 +63,8 @@ export default () => {
       </CardList>
       <h3>Cartes retournées 👀</h3>
       <CardList>
-        {state.scenarioAssetsMetadata.numberedCards
-          .filter(
-            (cardMetadata) =>
-              state.numberedCardsStatus[cardMetadata.id] ===
-              CardStatus.SECRET_FACE
-          )
+        {cardStatusSelectors
+          .getNumberedCardsByStatus(state, CardStatus.SECRET_FACE)
           .map((cardMetadata) => (
             <CardPictureWithFooter
               key={cardMetadata.visibleSidePath}
@@ -81,12 +78,8 @@ export default () => {
       </CardList>
       <h3>Cartes dispos 🃏</h3>
       <CardList>
-        {state.scenarioAssetsMetadata.numberedCards
-          .filter(
-            (cardMetadata) =>
-              state.numberedCardsStatus[cardMetadata.id] ===
-              CardStatus.AVAILABLE
-          )
+        {cardStatusSelectors
+          .getNumberedCardsByStatus(state, CardStatus.AVAILABLE)
           .map((cardMetadata) => (
             <CardPictureWithFooter
               key={cardMetadata.visibleSidePath}
