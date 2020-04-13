@@ -16,7 +16,7 @@ const pdfAssetsDir = path.join(assetsDir, "./original");
 const pagesAssetsDir = path.join(assetsDir, "./pages");
 const cardsAssetsDir = path.join(__dirname, "../public");
 
-const LARGER_DIMENSION_SIZE = 1500;
+const LARGER_DIMENSION_SIZE = 3000;
 
 type PagePaths = string[];
 export interface CardMetadata {
@@ -34,7 +34,7 @@ const convertPdfToPngPages = async (
   pdfFilename: string
 ): Promise<PagePaths> => {
   const pdf2pic = new PDF2Pic({
-    density: 100, // output pixels per inch
+    density: 400, // output pixels per inch
     savename: pdfFilename, // output file name
     savedir: pagesAssetsDir, // output file location
     format: "png", // output file format
