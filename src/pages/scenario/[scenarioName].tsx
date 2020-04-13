@@ -31,27 +31,27 @@ export default () => {
       <h3>Initial pages paths</h3>
       {state.scenarioAssetsMetadata.introCards.map(
         (cardMetadata, introCardIndex) => (
-          <>
+          <div key={cardMetadata.visibleSidePath}>
             <CardPicture
               src={`/${cardMetadata.visibleSidePath}`}
               alt="Introduction card"
               size={PictureSizes.medium}
             />
             <span>{state.introCardsStatus[introCardIndex]}</span>
-          </>
+          </div>
         )
       )}
       <h3>Additional pages paths</h3>
       {state.scenarioAssetsMetadata.numberedCards.map(
         (cardMetadata, numberedCardIndex) => (
-          <>
+          <div key={cardMetadata.visibleSidePath}>
             <CardPicture
               src={`/${cardMetadata.visibleSidePath}`}
               alt="Available card"
               size={PictureSizes.small}
             />
             <span>{state.numberedCardsStatus[numberedCardIndex]}</span>
-          </>
+          </div>
         )
       )}
     </div>
