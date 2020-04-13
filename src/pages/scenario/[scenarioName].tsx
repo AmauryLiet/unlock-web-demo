@@ -20,10 +20,10 @@ export default () => {
     initCardStatusReducer
   );
 
-  const flipIntroCard = useCallback((introCardIndex) => {
+  const flipIntroCard = useCallback((introCardId: string) => {
     dispatch({
       type: ActionName.TOGGLE_INTRO_CARD,
-      introCardIndex,
+      introCardId,
     });
   }, []);
 
@@ -45,30 +45,27 @@ export default () => {
       <h2>{scenarioName}</h2>
       <h3>Cartes de départ 🏡</h3>
       <CardList>
-        {state.scenarioAssetsMetadata.introCards.map(
-          (cardMetadata, introCardIndex) => (
-            <CardPictureWithFooter
-              key={cardMetadata.visibleSidePath}
-              onClick={() => flipIntroCard(introCardIndex)}
-              cardMetadata={cardMetadata}
-              alt="Introduction card"
-              picSize={PictureSizes.medium}
-              showSecretSide={
-                CardStatus.SECRET_FACE ===
-                state.introCardsStatus[introCardIndex]
-              }
-            >
-              <span>{state.introCardsStatus[introCardIndex]}</span>
-            </CardPictureWithFooter>
-          )
-        )}
+        {state.scenarioAssetsMetadata.introCards.map((cardMetadata) => (
+          <CardPictureWithFooter
+            key={cardMetadata.visibleSidePath}
+            onClick={() => flipIntroCard(cardMetadata.id)}
+            cardMetadata={cardMetadata}
+            alt="Introduction card"
+            picSize={PictureSizes.medium}
+            showSecretSide={
+              CardStatus.SECRET_FACE === state.introCardsStatus[cardMetadata.id]
+            }
+          >
+            <span>{state.introCardsStatus[cardMetadata.id]}</span>
+          </CardPictureWithFooter>
+        ))}
       </CardList>
       <h3>Cartes retournées 👀</h3>
       <CardList>
         {state.scenarioAssetsMetadata.numberedCards
           .filter(
-            (_, numberedCardIndex) =>
-              state.numberedCardsStatus[numberedCardIndex] ===
+            (cardMetadata) =>
+              state.numberedCardsStatus[cardMetadata.id] ===
               CardStatus.SECRET_FACE
           )
           .map((cardMetadata) => (
@@ -86,8 +83,8 @@ export default () => {
       <CardList>
         {state.scenarioAssetsMetadata.numberedCards
           .filter(
-            (_, numberedCardIndex) =>
-              state.numberedCardsStatus[numberedCardIndex] ===
+            (cardMetadata) =>
+              state.numberedCardsStatus[cardMetadata.id] ===
               CardStatus.AVAILABLE
           )
           .map((cardMetadata) => (

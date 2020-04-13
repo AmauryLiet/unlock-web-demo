@@ -1,3 +1,4 @@
+import { fromPairs } from "ramda";
 import { ConvertedAssetsMetadata } from "../../scripts/pdfToPngConverter";
 import { getMetadataForName } from "../tools/metadataHandling";
 
@@ -10,8 +11,8 @@ export enum CardStatus {
 
 interface State {
   scenarioAssetsMetadata: ConvertedAssetsMetadata;
-  introCardsStatus: CardStatus[];
-  numberedCardsStatus: CardStatus[];
+  introCardsStatus: { [id: string]: CardStatus };
+  numberedCardsStatus: { [id: string]: CardStatus };
 }
 
 export enum ActionName {
@@ -26,7 +27,7 @@ type Action =
     }
   | {
       type: ActionName.TOGGLE_INTRO_CARD;
-      introCardIndex: number;
+      introCardId: string;
     };
 
 export const initCardStatusReducer = (
@@ -42,14 +43,22 @@ export const initCardStatusReducer = (
     return;
   }
 
+  const introCardsStatus = fromPairs(
+    scenarioAssetsMetadata.introCards.map((assetMetadata) => [
+      assetMetadata.id,
+      CardStatus.VISIBLE_FACE,
+    ])
+  );
+  const numberedCardsStatus = fromPairs(
+    scenarioAssetsMetadata.numberedCards.map((assetMetadata) => [
+      assetMetadata.id,
+      CardStatus.AVAILABLE,
+    ])
+  );
   return {
     scenarioAssetsMetadata,
-    introCardsStatus: Array(scenarioAssetsMetadata.introCards.length).fill(
-      CardStatus.VISIBLE_FACE
-    ),
-    numberedCardsStatus: Array(
-      scenarioAssetsMetadata.numberedCards.length
-    ).fill(CardStatus.AVAILABLE),
+    introCardsStatus,
+    numberedCardsStatus,
   };
 };
 
@@ -59,8 +68,8 @@ export const cardStatusReducer = (state: State, action: Action): State => {
       return initCardStatusReducer(action.scenarioName);
 
     case ActionName.TOGGLE_INTRO_CARD:
-      const introCardsStatus = [...state.introCardsStatus];
-      const previousCardStatus = introCardsStatus[action.introCardIndex];
+      const introCardsStatus = { ...state.introCardsStatus };
+      const previousCardStatus = introCardsStatus[action.introCardId];
       const newCardStatus = {
         [CardStatus.VISIBLE_FACE]: CardStatus.SECRET_FACE,
         [CardStatus.SECRET_FACE]: CardStatus.VISIBLE_FACE,
@@ -73,7 +82,7 @@ export const cardStatusReducer = (state: State, action: Action): State => {
         return state;
       }
 
-      introCardsStatus[action.introCardIndex] = newCardStatus;
+      introCardsStatus[action.introCardId] = newCardStatus;
       return {
         ...state,
         introCardsStatus,

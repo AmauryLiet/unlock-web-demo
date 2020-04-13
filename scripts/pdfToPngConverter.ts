@@ -20,6 +20,7 @@ const LARGER_DIMENSION_SIZE = 1500;
 
 type PagePaths = string[];
 export interface CardMetadata {
+  id: string;
   visibleSidePath: string;
   secretSidePath: string;
 }
@@ -161,6 +162,7 @@ const extractCardsFromPages = async (
         );
 
         return {
+          id: `${cardIndex}`,
           visibleSidePath: visibleSideRelativePath,
           secretSidePath: secretSideRelativePath,
         };
