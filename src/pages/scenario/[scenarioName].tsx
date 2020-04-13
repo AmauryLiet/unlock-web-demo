@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useReducer } from "react";
+import React, { useCallback, useReducer } from "react";
 import CardList from "../../components/CardList";
 import { PictureSizes } from "../../components/CardPicture";
 import CardPictureWithFooter from "../../components/CardPictureWithFooter";
@@ -19,6 +19,13 @@ export default () => {
     scenarioName,
     initCardStatusReducer
   );
+
+  const flipIntroCard = useCallback((introCardIndex) => {
+    dispatch({
+      type: ActionName.TOGGLE_INTRO_CARD,
+      introCardIndex,
+    });
+  }, []);
 
   if (!state) {
     if (typeof scenarioName === "string") {
@@ -42,12 +49,7 @@ export default () => {
           (cardMetadata, introCardIndex) => (
             <CardPictureWithFooter
               key={cardMetadata.visibleSidePath}
-              onClick={() =>
-                dispatch({
-                  type: ActionName.TOGGLE_INTRO_CARD,
-                  introCardIndex,
-                })
-              }
+              onClick={() => flipIntroCard(introCardIndex)}
               cardMetadata={cardMetadata}
               alt="Introduction card"
               picSize={PictureSizes.medium}
