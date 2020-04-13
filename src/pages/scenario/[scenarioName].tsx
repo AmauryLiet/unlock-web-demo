@@ -29,31 +29,41 @@ export default () => {
     <div>
       <h2>{scenarioName}</h2>
       <h3>Initial pages paths</h3>
-      {state.scenarioAssetsMetadata.introCards.map(
-        (cardMetadata, introCardIndex) => (
-          <div key={cardMetadata.visibleSidePath}>
-            <CardPicture
-              src={`/${cardMetadata.visibleSidePath}`}
-              alt="Introduction card"
-              size={PictureSizes.medium}
-            />
-            <span>{state.introCardsStatus[introCardIndex]}</span>
-          </div>
-        )
-      )}
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {state.scenarioAssetsMetadata.introCards.map(
+          (cardMetadata, introCardIndex) => (
+            <div
+              key={cardMetadata.visibleSidePath}
+              style={{ display: "flex", flexDirection: "column" }}
+            >
+              <CardPicture
+                src={`/${cardMetadata.visibleSidePath}`}
+                alt="Introduction card"
+                size={PictureSizes.medium}
+              />
+              <span>{state.introCardsStatus[introCardIndex]}</span>
+            </div>
+          )
+        )}
+      </div>
       <h3>Additional pages paths</h3>
-      {state.scenarioAssetsMetadata.numberedCards.map(
-        (cardMetadata, numberedCardIndex) => (
-          <div key={cardMetadata.visibleSidePath}>
-            <CardPicture
-              src={`/${cardMetadata.visibleSidePath}`}
-              alt="Available card"
-              size={PictureSizes.small}
-            />
-            <span>{state.numberedCardsStatus[numberedCardIndex]}</span>
-          </div>
-        )
-      )}
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {state.scenarioAssetsMetadata.numberedCards.map(
+          (cardMetadata, numberedCardIndex) => (
+            <div
+              key={cardMetadata.visibleSidePath}
+              style={{ display: "flex", flexDirection: "column" }}
+            >
+              <CardPicture
+                src={`/${cardMetadata.visibleSidePath}`}
+                alt="Available card"
+                size={PictureSizes.small}
+              />
+              <span>{state.numberedCardsStatus[numberedCardIndex]}</span>
+            </div>
+          )
+        )}
+      </div>
     </div>
   );
 };
