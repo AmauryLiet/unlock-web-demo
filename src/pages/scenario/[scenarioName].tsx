@@ -1,14 +1,10 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import CardPicture, { PictureSizes } from "../../components/CardPicture";
-import { getMetadataForName } from "../../tools/metadataHandling";
-
-enum CardStatus {
-  VISIBLE_FACE = "VISIBLE_FACE",
-  SECRET_FACE = "SECRET_FACE",
-  DISCARDED = "DISCARDED",
-  AVAILABLE = "AVAILABLE",
-}
+import {
+  initCardStatusReducer,
+  cardStatusReducer,
+} from "../../reducer/CardStatuses";
 
 export default () => {
   const router = useRouter();
@@ -21,27 +17,11 @@ export default () => {
     return <div>Loading...</div>;
   }
 
-  const [state, setState] = useState(() => {
-    if (typeof scenarioName != "string") {
-      console.error(`Error: invalid non-string path ${scenarioName}`);
-      return;
-    }
-    const scenarioAssetsMetadata = getMetadataForName(scenarioName);
-    if (!scenarioAssetsMetadata) {
-      console.error(`Error: unknown scenario ${scenarioName}`);
-      return;
-    }
-
-    return {
-      scenarioAssetsMetadata,
-      introCardsStatus: Array(scenarioAssetsMetadata.introCards.length).fill(
-        CardStatus.VISIBLE_FACE
-      ),
-      numberedCardsStatus: Array(
-        scenarioAssetsMetadata.numberedCards.length
-      ).fill(CardStatus.AVAILABLE),
-    };
-  });
+  const [state, dispatch] = useReducer(
+    cardStatusReducer,
+    scenarioName,
+    initCardStatusReducer
+  );
 
   if (!state) return <div>Error</div>;
 
