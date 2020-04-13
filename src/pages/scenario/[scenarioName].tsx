@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import React, { useReducer } from "react";
 import CardList from "../../components/CardList";
-import CardPicture, { PictureSizes } from "../../components/CardPicture";
+import { PictureSizes } from "../../components/CardPicture";
+import CardPictureWithFooter from "../../components/CardPictureWithFooter";
 import {
   initCardStatusReducer,
   cardStatusReducer,
@@ -39,27 +40,24 @@ export default () => {
       <CardList>
         {state.scenarioAssetsMetadata.introCards.map(
           (cardMetadata, introCardIndex) => (
-            <div
+            <CardPictureWithFooter
               key={cardMetadata.visibleSidePath}
-              style={{ display: "flex", flexDirection: "column" }}
               onClick={() =>
                 dispatch({
                   type: ActionName.TOGGLE_INTRO_CARD,
                   introCardIndex,
                 })
               }
+              cardMetadata={cardMetadata}
+              alt="Introduction card"
+              picSize={PictureSizes.medium}
+              showSecretSide={
+                CardStatus.SECRET_FACE ===
+                state.introCardsStatus[introCardIndex]
+              }
             >
-              <CardPicture
-                cardMetadata={cardMetadata}
-                alt="Introduction card"
-                size={PictureSizes.medium}
-                showSecretSide={
-                  CardStatus.SECRET_FACE ===
-                  state.introCardsStatus[introCardIndex]
-                }
-              />
               <span>{state.introCardsStatus[introCardIndex]}</span>
-            </div>
+            </CardPictureWithFooter>
           )
         )}
       </CardList>
@@ -72,17 +70,14 @@ export default () => {
               CardStatus.SECRET_FACE
           )
           .map((cardMetadata) => (
-            <div
+            <CardPictureWithFooter
               key={cardMetadata.visibleSidePath}
-              style={{ display: "flex", flexDirection: "column" }}
+              cardMetadata={cardMetadata}
+              alt="Flipped card"
+              picSize={PictureSizes.medium}
             >
-              <CardPicture
-                cardMetadata={cardMetadata}
-                alt="Flipped card"
-                size={PictureSizes.medium}
-              />
               <span>Jeter</span>
-            </div>
+            </CardPictureWithFooter>
           ))}
       </CardList>
       <h3>Cartes dispos 🃏</h3>
@@ -94,17 +89,14 @@ export default () => {
               CardStatus.AVAILABLE
           )
           .map((cardMetadata) => (
-            <div
+            <CardPictureWithFooter
               key={cardMetadata.visibleSidePath}
-              style={{ display: "flex", flexDirection: "column" }}
+              cardMetadata={cardMetadata}
+              alt="Available card"
+              picSize={PictureSizes.small}
             >
-              <CardPicture
-                cardMetadata={cardMetadata}
-                alt="Available card"
-                size={PictureSizes.small}
-              />
               <span>Retourner</span>
-            </div>
+            </CardPictureWithFooter>
           ))}
       </CardList>
     </div>
