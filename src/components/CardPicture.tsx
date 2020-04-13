@@ -43,6 +43,12 @@ export default ({ cardMetadata, alt, size, showSecretSide = false }: Props) => {
         img {
           transition: opacity 100ms;
         }
+        div {
+          border: 3px solid transparent;
+        }
+        div:hover {
+          border-color: darkgrey;
+        }
       `}</style>
     </>
   );
