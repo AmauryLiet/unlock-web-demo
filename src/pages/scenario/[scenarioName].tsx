@@ -77,6 +77,7 @@ export default () => {
               cardMetadata={cardMetadata}
               alt="Flipped card"
               picSize={PictureSizes.medium}
+              showSecretSide
             >
               <span>Jeter</span>
             </CardPictureWithFooter>
