@@ -19,6 +19,7 @@ export enum ActionName {
   REINIT,
   TOGGLE_INTRO_CARD,
   REVEAL_NUMBERED_CARD,
+  DISCARD_CARD,
 }
 
 type Action =
@@ -33,6 +34,10 @@ type Action =
   | {
       type: ActionName.REVEAL_NUMBERED_CARD;
       numberedCardId: string;
+    }
+  | {
+      type: ActionName.DISCARD_CARD;
+      cardId: string;
     };
 
 export const initCardStatusReducer = (
@@ -113,21 +118,50 @@ export const cardStatusReducer = (state: State, action: Action): State => {
         },
       };
 
+    case ActionName.DISCARD_CARD:
+      if (
+        state.scenarioAssetsMetadata.introCards
+          .map((card) => card.id)
+          .includes(action.cardId)
+      ) {
+        return {
+          ...state,
+          introCardsStatus: {
+            ...state.introCardsStatus,
+            [action.cardId]: CardStatus.DISCARDED,
+          },
+        };
+      } else {
+        return {
+          ...state,
+          numberedCardsStatus: {
+            ...state.numberedCardsStatus,
+            [action.cardId]: CardStatus.DISCARDED,
+          },
+        };
+      }
+
     default:
       throw new Error();
   }
 };
 
-const getIntroCards = (state: State) => state.scenarioAssetsMetadata.introCards;
+const getAllIntroCards = (state: State) =>
+  state.scenarioAssetsMetadata.introCards;
 const getAllNumberedCards = (state: State) =>
   state.scenarioAssetsMetadata.numberedCards;
 
+const getVisibleIntroCards = (state: State) =>
+  getAllIntroCards(state).filter(
+    (cardMetadata) =>
+      state.introCardsStatus[cardMetadata.id] !== CardStatus.DISCARDED
+  );
 const getNumberedCardsByStatus = (state: State, status: CardStatus) =>
   getAllNumberedCards(state).filter(
     (cardMetadata) => state.numberedCardsStatus[cardMetadata.id] === status
   );
 
 export const cardStatusSelectors = {
-  getIntroCards,
+  getVisibleIntroCards,
   getNumberedCardsByStatus,
 };

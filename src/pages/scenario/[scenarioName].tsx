@@ -33,6 +33,12 @@ export default () => {
       numberedCardId,
     });
   }, []);
+  const discardCard = useCallback((cardId: string) => {
+    dispatch({
+      type: ActionName.DISCARD_CARD,
+      cardId,
+    });
+  }, []);
 
   if (!state) {
     if (typeof scenarioName === "string") {
@@ -52,7 +58,7 @@ export default () => {
       <h2>{scenarioName}</h2>
       <h3>Cartes de départ 🏡</h3>
       <CardList>
-        {cardStatusSelectors.getIntroCards(state).map((cardMetadata) => (
+        {cardStatusSelectors.getVisibleIntroCards(state).map((cardMetadata) => (
           <CardPictureWithFooter
             key={cardMetadata.visibleSidePath}
             onClick={() => flipIntroCard(cardMetadata.id)}
@@ -63,7 +69,7 @@ export default () => {
               CardStatus.SECRET_FACE === state.introCardsStatus[cardMetadata.id]
             }
           >
-            <span>{state.introCardsStatus[cardMetadata.id]}</span>
+            <span onClick={() => discardCard(cardMetadata.id)}>Jeter</span>
           </CardPictureWithFooter>
         ))}
       </CardList>
@@ -79,7 +85,7 @@ export default () => {
               picSize={PictureSizes.medium}
               showSecretSide
             >
-              <span>Jeter</span>
+              <span onClick={() => discardCard(cardMetadata.id)}>Jeter</span>
             </CardPictureWithFooter>
           ))}
       </CardList>
