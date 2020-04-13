@@ -15,7 +15,7 @@ export default () => {
   const router = useRouter();
   const { scenarioName } = router.query;
 
-  const [state, dispatch] = useReducer(
+  const [store, dispatch] = useReducer(
     cardStatusReducer,
     scenarioName,
     initCardStatusReducer
@@ -40,10 +40,10 @@ export default () => {
     });
   }, []);
 
-  if (!state) {
+  if (!store) {
     if (typeof scenarioName === "string") {
       // FIXME Next issue :( https://github.com/zeit/next.js/issues/11201
-      //  this workaround is made to ensure proper state initialization at 2nd render
+      //  this workaround is made to ensure proper store initialization at 2nd render
       dispatch({
         type: ActionName.REINIT,
         scenarioName,
@@ -58,7 +58,7 @@ export default () => {
       <h2>{scenarioName}</h2>
       <h3>Cartes de départ 🏡</h3>
       <CardList>
-        {cardStatusSelectors.getVisibleIntroCards(state).map((cardMetadata) => (
+        {cardStatusSelectors.getVisibleIntroCards(store).map((cardMetadata) => (
           <CardPictureWithFooter
             key={cardMetadata.visibleSidePath}
             onCardPictureClick={() => flipIntroCard(cardMetadata.id)}
@@ -66,7 +66,7 @@ export default () => {
             alt="Introduction card"
             picSize={PictureSizes.medium}
             showSecretSide={
-              CardStatus.SECRET_FACE === state.introCardsStatus[cardMetadata.id]
+              CardStatus.SECRET_FACE === store.introCardsStatus[cardMetadata.id]
             }
           >
             <span onClick={() => discardCard(cardMetadata.id)}>Jeter</span>
@@ -76,7 +76,7 @@ export default () => {
       <h3>Cartes retournées 👀</h3>
       <CardList>
         {cardStatusSelectors
-          .getNumberedCardsByStatus(state, CardStatus.SECRET_FACE)
+          .getNumberedCardsByStatus(store, CardStatus.SECRET_FACE)
           .map((cardMetadata) => (
             <CardPictureWithFooter
               key={cardMetadata.visibleSidePath}
@@ -92,7 +92,7 @@ export default () => {
       <h3>Cartes dispos 🃏</h3>
       <CardList>
         {cardStatusSelectors
-          .getNumberedCardsByStatus(state, CardStatus.AVAILABLE)
+          .getNumberedCardsByStatus(store, CardStatus.AVAILABLE)
           .map((cardMetadata) => (
             <CardPictureWithFooter
               key={cardMetadata.visibleSidePath}
