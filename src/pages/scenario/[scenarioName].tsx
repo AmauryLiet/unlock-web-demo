@@ -35,7 +35,7 @@ export default () => {
   return (
     <div>
       <h2>{scenarioName}</h2>
-      <h3>Initial pages paths</h3>
+      <h3>Cartes de départ 🏡</h3>
       <CardList>
         {state.scenarioAssetsMetadata.introCards.map(
           (cardMetadata, introCardIndex) => (
@@ -63,7 +63,7 @@ export default () => {
           )
         )}
       </CardList>
-      <h3>Additional pages paths</h3>
+      <h3>Cartes dispos 🃏</h3>
       <CardList>
         {state.scenarioAssetsMetadata.numberedCards.map(
           (cardMetadata, numberedCardIndex) => (
