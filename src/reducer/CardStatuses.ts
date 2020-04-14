@@ -78,7 +78,10 @@ export const initCardStatusReducer = (
 const moveElementLast = <T>(array: Readonly<T[]>, elementToMoveLast: T): T[] =>
   append(elementToMoveLast, without([elementToMoveLast], array));
 
-export const cardStatusReducer = (state: State, action: Action): State => {
+export const cardStatusReducer = (
+  state: Readonly<State>,
+  action: Action
+): State => {
   switch (action.type) {
     case ActionName.REINIT:
       return initCardStatusReducer(action.scenarioName);
