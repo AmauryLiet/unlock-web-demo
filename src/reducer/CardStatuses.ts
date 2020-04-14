@@ -1,4 +1,4 @@
-import { fromPairs } from "ramda";
+import { fromPairs, append, without } from "ramda";
 import { ConvertedAssetsMetadata } from "../../scripts/pdfToPngConverter";
 import { getMetadataForName } from "../tools/metadataHandling";
 
@@ -13,6 +13,7 @@ interface State {
   scenarioAssetsMetadata: ConvertedAssetsMetadata;
   introCardsStatus: { [id: string]: CardStatus };
   numberedCardsStatus: { [id: string]: CardStatus };
+  overallCardsOrder: string[];
 }
 
 export enum ActionName {
@@ -53,24 +54,29 @@ export const initCardStatusReducer = (
     return;
   }
 
+  const introCardsIds = scenarioAssetsMetadata.introCards.map(
+    (assetMetadata) => assetMetadata.id
+  );
+  const numberedCardsIds = scenarioAssetsMetadata.numberedCards.map(
+    (assetMetadata) => assetMetadata.id
+  );
+
   const introCardsStatus = fromPairs(
-    scenarioAssetsMetadata.introCards.map((assetMetadata) => [
-      assetMetadata.id,
-      CardStatus.VISIBLE_FACE,
-    ])
+    introCardsIds.map((id) => [id, CardStatus.VISIBLE_FACE])
   );
   const numberedCardsStatus = fromPairs(
-    scenarioAssetsMetadata.numberedCards.map((assetMetadata) => [
-      assetMetadata.id,
-      CardStatus.AVAILABLE,
-    ])
+    numberedCardsIds.map((id) => [id, CardStatus.AVAILABLE])
   );
   return {
     scenarioAssetsMetadata,
     introCardsStatus,
     numberedCardsStatus,
+    overallCardsOrder: [...introCardsIds, ...numberedCardsIds],
   };
 };
+
+const moveElementLast = <T>(array: Readonly<T[]>, elementToMoveLast: T): T[] =>
+  append(elementToMoveLast, without([elementToMoveLast], array));
 
 export const cardStatusReducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -97,9 +103,13 @@ export const cardStatusReducer = (state: State, action: Action): State => {
           ...state.introCardsStatus,
           [action.introCardId]: newCardStatus,
         },
+        overallCardsOrder: moveElementLast(
+          state.overallCardsOrder,
+          action.introCardId
+        ),
       };
 
-    case ActionName.REVEAL_CARD:
+    case ActionName.REVEAL_CARD: {
       const isIntroCard = state.scenarioAssetsMetadata.introCards
         .map((card) => card.id)
         .includes(action.cardId);
@@ -116,6 +126,11 @@ export const cardStatusReducer = (state: State, action: Action): State => {
           `Tried to reveal a non visible card "${action.cardId}" was "${cardFormerStatus}"`
         );
 
+      const overallCardsOrder = moveElementLast(
+        state.overallCardsOrder,
+        action.cardId
+      );
+
       if (isIntroCard) {
         return {
           ...state,
@@ -123,6 +138,7 @@ export const cardStatusReducer = (state: State, action: Action): State => {
             ...state.introCardsStatus,
             [action.cardId]: CardStatus.SECRET_FACE,
           },
+          overallCardsOrder,
         };
       } else {
         return {
@@ -131,10 +147,17 @@ export const cardStatusReducer = (state: State, action: Action): State => {
             ...state.numberedCardsStatus,
             [action.cardId]: CardStatus.SECRET_FACE,
           },
+          overallCardsOrder,
         };
       }
+    }
 
-    case ActionName.DISCARD_CARD:
+    case ActionName.DISCARD_CARD: {
+      const overallCardsOrder = moveElementLast(
+        state.overallCardsOrder,
+        action.cardId
+      );
+
       if (
         state.scenarioAssetsMetadata.introCards
           .map((card) => card.id)
@@ -146,6 +169,7 @@ export const cardStatusReducer = (state: State, action: Action): State => {
             ...state.introCardsStatus,
             [action.cardId]: CardStatus.DISCARDED,
           },
+          overallCardsOrder,
         };
       } else {
         return {
@@ -154,8 +178,10 @@ export const cardStatusReducer = (state: State, action: Action): State => {
             ...state.numberedCardsStatus,
             [action.cardId]: CardStatus.DISCARDED,
           },
+          overallCardsOrder,
         };
       }
+    }
 
     default:
       throw new Error();
