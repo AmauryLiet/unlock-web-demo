@@ -19,15 +19,23 @@ const cardsAssetsDir = path.join(__dirname, "../public");
 const LARGER_DIMENSION_SIZE = 3000;
 
 type PagePaths = string[];
-export interface CardMetadata {
+
+export enum CardType {
+  INTRODUCTION = "INTRODUCTION",
+  NUMBERED = "NUMBERED",
+}
+
+interface TypeLessCardMetadata {
   id: string;
   visibleSidePath: string;
   secretSidePath: string;
 }
+export interface CardMetadata extends TypeLessCardMetadata {
+  type: CardType;
+}
 export interface ConvertedAssetsMetadata {
   scenarioPublicName: string;
-  introCards: CardMetadata[];
-  numberedCards: CardMetadata[];
+  cards: CardMetadata[];
 }
 
 const convertPdfToPngPages = async (
@@ -88,7 +96,7 @@ const getCroppedCardFromPage = async (
 const extractCardsFromPages = async (
   pdfAssetMetadata: PdfAssetMetadata,
   pages: any
-): Promise<CardMetadata[]> => {
+): Promise<TypeLessCardMetadata[]> => {
   const {
     filename: pdfFilename,
     startWithSecretFaces,
@@ -104,7 +112,7 @@ const extractCardsFromPages = async (
 
   return await Promise.all(
     [...Array(cardCount)].map(
-      async (_, cardIndex): Promise<CardMetadata> => {
+      async (_, cardIndex): Promise<TypeLessCardMetadata> => {
         const firstInterestingPageIndex =
           Math.floor(cardIndex / CARD_COUNT_PER_PAGE) * 2;
 
@@ -182,12 +190,13 @@ const main = async () => {
 
       return {
         scenarioPublicName: pdfAssetMetadata.filename,
-        introCards: pdfAssetMetadata.introductionCards.map(
-          (introCardIndex) => allCards[introCardIndex]
-        ),
-        numberedCards: allCards.filter(
-          (_, cardIndex) =>
-            !pdfAssetMetadata.introductionCards.includes(cardIndex)
+        cards: allCards.map(
+          (typeLessMetadata, cardIndex): CardMetadata => ({
+            ...typeLessMetadata,
+            type: pdfAssetMetadata.introductionCards.includes(cardIndex)
+              ? CardType.INTRODUCTION
+              : CardType.NUMBERED,
+          })
         ),
       };
     })
