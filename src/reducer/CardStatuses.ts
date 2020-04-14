@@ -1,5 +1,8 @@
-import { fromPairs, append, without } from "ramda";
-import { ConvertedAssetsMetadata } from "../../scripts/pdfToPngConverter";
+import * as R from "ramda";
+import {
+  CardMetadata,
+  ConvertedAssetsMetadata,
+} from "../../scripts/pdfToPngConverter";
 import { getMetadataForName } from "../tools/metadataHandling";
 
 export enum CardStatus {
@@ -61,10 +64,10 @@ export const initCardStatusReducer = (
     (assetMetadata) => assetMetadata.id
   );
 
-  const introCardsStatus = fromPairs(
+  const introCardsStatus = R.fromPairs(
     introCardsIds.map((id) => [id, CardStatus.VISIBLE_FACE])
   );
-  const numberedCardsStatus = fromPairs(
+  const numberedCardsStatus = R.fromPairs(
     numberedCardsIds.map((id) => [id, CardStatus.AVAILABLE])
   );
   return {
@@ -76,7 +79,7 @@ export const initCardStatusReducer = (
 };
 
 const moveElementLast = <T>(array: Readonly<T[]>, elementToMoveLast: T): T[] =>
-  append(elementToMoveLast, without([elementToMoveLast], array));
+  R.append(elementToMoveLast, R.without([elementToMoveLast], array));
 
 export const cardStatusReducer = (
   state: Readonly<State>,
@@ -191,28 +194,51 @@ export const cardStatusReducer = (
   }
 };
 
-const getAllIntroCards = (state: State) =>
-  state.scenarioAssetsMetadata.introCards;
-const getAllNumberedCards = (state: State) =>
-  state.scenarioAssetsMetadata.numberedCards;
+const getAllIntroCardsOrdered = (state: State) =>
+  state.overallCardsOrder
+    .map((id) =>
+      R.find<CardMetadata>(R.propEq("id", id))(
+        state.scenarioAssetsMetadata.introCards
+      )
+    )
+    .filter(Boolean);
+const getAllNumberedCardsOrdered = (state: State) =>
+  state.overallCardsOrder
+    .map((id) =>
+      R.find<CardMetadata>(R.propEq("id", id))(
+        state.scenarioAssetsMetadata.numberedCards
+      )
+    )
+    .filter(Boolean);
+const getAllCardsOrdered = (state: State) => {
+  const allCards = [
+    ...state.scenarioAssetsMetadata.introCards,
+    ...state.scenarioAssetsMetadata.numberedCards,
+  ];
+  return state.overallCardsOrder.map((id) =>
+    R.find<CardMetadata>(R.propEq("id", id))(allCards)
+  );
+};
 
 const getVisibleIntroCards = (state: State) =>
-  getAllIntroCards(state).filter(
+  getAllIntroCardsOrdered(state).filter(
     (cardMetadata) =>
       state.introCardsStatus[cardMetadata.id] !== CardStatus.DISCARDED
   );
 const getIntroCardsByStatus = (state: State, status: CardStatus) =>
-  getAllIntroCards(state).filter(
+  getAllIntroCardsOrdered(state).filter(
     (cardMetadata) => state.introCardsStatus[cardMetadata.id] === status
   );
 const getNumberedCardsByStatus = (state: State, status: CardStatus) =>
-  getAllNumberedCards(state).filter(
+  getAllNumberedCardsOrdered(state).filter(
     (cardMetadata) => state.numberedCardsStatus[cardMetadata.id] === status
   );
-const getAllCardsByStatus = (state: State, status: CardStatus) => [
-  ...getIntroCardsByStatus(state, status),
-  ...getNumberedCardsByStatus(state, status),
-];
+const getAllCardsByStatus = (state: State, status: CardStatus) =>
+  getAllCardsOrdered(state).filter(
+    (cardMetadata) =>
+      (state.introCardsStatus[cardMetadata.id] ||
+        state.numberedCardsStatus[cardMetadata.id]) === status
+  );
 
 export const cardStatusSelectors = {
   getVisibleIntroCards,
