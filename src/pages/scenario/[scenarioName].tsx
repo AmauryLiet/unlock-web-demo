@@ -81,6 +81,9 @@ export default () => {
               alt="Flipped card"
               picSize={PictureSizes.medium}
               showSecretSide
+              onCardPictureClick={() =>
+                window.open(`${location.origin}/${cardMetadata.secretSidePath}`)
+              }
             >
               <span onClick={() => discardCard(cardMetadata.id)}>Jeter</span>
             </CardPictureWithFooter>
