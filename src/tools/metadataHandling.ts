@@ -1,4 +1,4 @@
-import { ConvertedAssetsMetadata } from "../../scripts/pdfToPngConverter";
+import { ConvertedAssetsMetadata } from "../types/metadata";
 
 const allConvertedAssetsMetadata: ConvertedAssetsMetadata[] = require("../../public/metadata.json");
 

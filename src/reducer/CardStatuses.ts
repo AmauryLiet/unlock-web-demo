@@ -3,7 +3,7 @@ import {
   CardMetadata,
   CardType,
   ConvertedAssetsMetadata,
-} from "../../scripts/pdfToPngConverter";
+} from "../types/metadata";
 import { getMetadataForName } from "../tools/metadataHandling";
 
 export enum CardStatus {

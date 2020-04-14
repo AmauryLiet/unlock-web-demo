@@ -10,6 +10,12 @@ import {
   ROW_COUNT_PER_PAGE,
   MarginDetails,
 } from "../assets/original";
+import {
+  CardMetadata,
+  CardType,
+  ConvertedAssetsMetadata,
+  TypeLessCardMetadata,
+} from "../src/types/metadata";
 
 const assetsDir = path.join(__dirname, "../assets");
 const pdfAssetsDir = path.join(assetsDir, "./original");
@@ -19,24 +25,6 @@ const cardsAssetsDir = path.join(__dirname, "../public");
 const LARGER_DIMENSION_SIZE = 3000;
 
 type PagePaths = string[];
-
-export enum CardType {
-  INTRODUCTION = "INTRODUCTION",
-  NUMBERED = "NUMBERED",
-}
-
-interface TypeLessCardMetadata {
-  id: string;
-  visibleSidePath: string;
-  secretSidePath: string;
-}
-export interface CardMetadata extends TypeLessCardMetadata {
-  type: CardType;
-}
-export interface ConvertedAssetsMetadata {
-  scenarioPublicName: string;
-  cards: CardMetadata[];
-}
 
 const convertPdfToPngPages = async (
   pdfFilename: string

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { ConvertedAssetsMetadata } from "../../scripts/pdfToPngConverter";
+import { CardType, ConvertedAssetsMetadata } from "../types/metadata";
 import { PictureSizes } from "./CardPicture";
 import CardPictureWithFooter from "./CardPictureWithFooter";
 

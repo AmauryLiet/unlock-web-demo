@@ -1,5 +1,5 @@
 import React from "react";
-import { CardMetadata } from "../../scripts/pdfToPngConverter";
+import { CardMetadata } from "../types/metadata";
 import CardPicture, { PictureSizes } from "./CardPicture";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {

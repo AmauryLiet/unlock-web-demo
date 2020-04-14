@@ -1,5 +1,5 @@
 import React from "react";
-import { CardMetadata } from "../../scripts/pdfToPngConverter";
+import { CardMetadata } from "../types/metadata";
 
 export enum PictureSizes {
   small = "small",
