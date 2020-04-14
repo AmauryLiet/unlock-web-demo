@@ -109,6 +109,7 @@ export const cardStatusReducer = (
       const expectedFormerStatuses = [
         CardStatus.VISIBLE_FACE,
         CardStatus.AVAILABLE,
+        CardStatus.DISCARDED,
       ];
       if (!expectedFormerStatuses.includes(cardFormerStatus))
         console.warn(
