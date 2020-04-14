@@ -105,10 +105,6 @@ export const cardStatusReducer = (
           ...state.cardsStatus,
           [action.introCardId]: newCardStatus,
         },
-        overallCardsOrder: moveElementLast(
-          state.overallCardsOrder,
-          action.introCardId
-        ),
       };
 
     case ActionName.REVEAL_CARD: {
