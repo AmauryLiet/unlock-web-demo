@@ -13,5 +13,5 @@ export interface CardMetadata extends TypeLessCardMetadata {
 }
 export interface ConvertedAssetsMetadata {
   scenarioPublicName: string;
-  cards: CardMetadata[];
+  cards: { [id: string]: CardMetadata };
 }

@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import PDF2Pic from "pdf2pic";
 import sharp from "sharp";
+import * as R from "ramda";
 import {
   CARD_COUNT_PER_PAGE,
   allPdfAssetsMetadata,
@@ -175,16 +176,22 @@ const main = async () => {
       const pages = pagePaths.map((path) => sharp(path));
 
       const allCards = await extractCardsFromPages(pdfAssetMetadata, pages);
+      const allCardsWithType = allCards.map(
+        (typeLessMetadata, cardIndex): CardMetadata => ({
+          ...typeLessMetadata,
+          type: pdfAssetMetadata.introductionCards.includes(cardIndex)
+            ? CardType.INTRODUCTION
+            : CardType.NUMBERED,
+        })
+      );
 
       return {
         scenarioPublicName: pdfAssetMetadata.filename,
-        cards: allCards.map(
-          (typeLessMetadata, cardIndex): CardMetadata => ({
-            ...typeLessMetadata,
-            type: pdfAssetMetadata.introductionCards.includes(cardIndex)
-              ? CardType.INTRODUCTION
-              : CardType.NUMBERED,
-          })
+        cards: R.fromPairs(
+          allCardsWithType.map((cardMetadata) => [
+            cardMetadata.id,
+            cardMetadata,
+          ])
         ),
       };
     })

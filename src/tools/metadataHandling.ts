@@ -1,3 +1,4 @@
+import * as R from "ramda";
 import { CardType, ConvertedAssetsMetadata } from "../types/metadata";
 
 const allConvertedAssetsMetadata: ConvertedAssetsMetadata[] = require("../../public/metadata.json");
@@ -15,6 +16,6 @@ export const getMetadataForName = (
 export const getFirstIntroductionCard = (
   convertedAssetsMetadata: ConvertedAssetsMetadata
 ) =>
-  convertedAssetsMetadata.cards.find(
+  R.values(convertedAssetsMetadata.cards).find(
     (cardMetadata) => cardMetadata.type === CardType.INTRODUCTION
   );
