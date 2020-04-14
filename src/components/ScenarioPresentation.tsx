@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
-import { CardType, ConvertedAssetsMetadata } from "../types/metadata";
+import { getFirstIntroductionCard } from "../tools/metadataHandling";
+import { ConvertedAssetsMetadata } from "../types/metadata";
 import { PictureSizes } from "./CardPicture";
 import CardPictureWithFooter from "./CardPictureWithFooter";
 
@@ -15,7 +16,7 @@ export default ({ scenarioMetadata, href }: Props) => {
       <Link href={href}>
         <CardPictureWithFooter
           className="scenarioCard"
-          cardMetadata={scenarioMetadata.introCards[0]}
+          cardMetadata={getFirstIntroductionCard(scenarioMetadata)}
           alt="my image"
           picSize={PictureSizes.medium}
         >
