@@ -65,9 +65,10 @@ export default () => {
             cardMetadata={cardMetadata}
             alt="Introduction card"
             picSize={PictureSizes.medium}
-            showSecretSide={
-              CardStatus.SECRET_FACE === store.introCardsStatus[cardMetadata.id]
-            }
+            showSecretSide={cardStatusSelectors.isCardOnSecretFace(
+              store,
+              cardMetadata.id
+            )}
           >
             <span onClick={() => discardCard(cardMetadata.id)}>Jeter</span>
           </CardPictureWithFooter>

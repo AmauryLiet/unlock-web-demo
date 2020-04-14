@@ -185,8 +185,12 @@ const getAllCardsByStatus = (state: State, status: CardStatus) =>
     (cardMetadata) => state.cardsStatus[cardMetadata.id] === status
   );
 
+const isCardOnSecretFace = (state: State, id: string) =>
+  state.cardsStatus[id] === CardStatus.SECRET_FACE;
+
 export const cardStatusSelectors = {
   getVisibleIntroCards,
   getNumberedCardsByStatus,
   getAllCardsByStatus,
+  isCardOnSecretFace,
 };
