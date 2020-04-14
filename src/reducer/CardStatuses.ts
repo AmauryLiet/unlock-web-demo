@@ -16,7 +16,7 @@ export enum CardStatus {
 interface State {
   scenarioAssetsMetadata: ConvertedAssetsMetadata;
   cardsStatus: { [id: string]: CardStatus };
-  overallCardsOrder: string[];
+  orderedCards: string[];
 }
 
 export enum ActionName {
@@ -70,7 +70,7 @@ export const initCardStatusReducer = (
         typeToStatusMapping[type],
       ])
     ),
-    overallCardsOrder: scenarioAssetsMetadata.cards.map(R.prop("id")),
+    orderedCards: scenarioAssetsMetadata.cards.map(R.prop("id")),
   };
 };
 
@@ -118,10 +118,7 @@ export const cardStatusReducer = (
           `Tried to reveal a non visible card "${action.cardId}" was "${cardFormerStatus}"`
         );
 
-      const overallCardsOrder = moveElementLast(
-        state.overallCardsOrder,
-        action.cardId
-      );
+      const orderedCards = moveElementLast(state.orderedCards, action.cardId);
 
       return {
         ...state,
@@ -129,15 +126,12 @@ export const cardStatusReducer = (
           ...state.cardsStatus,
           [action.cardId]: CardStatus.SECRET_FACE,
         },
-        overallCardsOrder,
+        orderedCards,
       };
     }
 
     case ActionName.DISCARD_CARD: {
-      const overallCardsOrder = moveElementLast(
-        state.overallCardsOrder,
-        action.cardId
-      );
+      const orderedCards = moveElementLast(state.orderedCards, action.cardId);
 
       return {
         ...state,
@@ -145,7 +139,7 @@ export const cardStatusReducer = (
           ...state.cardsStatus,
           [action.cardId]: CardStatus.DISCARDED,
         },
-        overallCardsOrder,
+        orderedCards,
       };
     }
 
@@ -155,7 +149,7 @@ export const cardStatusReducer = (
 };
 
 const getAllCardsOrdered = (state: State) =>
-  state.overallCardsOrder.map((id) =>
+  state.orderedCards.map((id) =>
     R.find<CardMetadata>(R.propEq("id", id))(state.scenarioAssetsMetadata.cards)
   );
 const getAllIntroCardsOrdered = (state: State) =>
