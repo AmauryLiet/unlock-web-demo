@@ -170,31 +170,33 @@ const extractCardsFromPages = async (
 
 const main = async () => {
   const convertedAssetsMetadata: ConvertedAssetsMetadata[] = await Promise.all(
-    allPdfAssetsMetadata.map(async (pdfAssetMetadata) => {
-      const pagePaths = await convertPdfToPngPages(pdfAssetMetadata.filename);
+    allPdfAssetsMetadata.map(
+      async (pdfAssetMetadata): Promise<ConvertedAssetsMetadata> => {
+        const pagePaths = await convertPdfToPngPages(pdfAssetMetadata.filename);
 
-      const pages = pagePaths.map((path) => sharp(path));
+        const pages = pagePaths.map((path) => sharp(path));
 
-      const allCards = await extractCardsFromPages(pdfAssetMetadata, pages);
-      const allCardsWithType = allCards.map(
-        (typeLessMetadata, cardIndex): CardMetadata => ({
-          ...typeLessMetadata,
-          type: pdfAssetMetadata.introductionCards.includes(cardIndex)
-            ? CardType.INTRODUCTION
-            : CardType.NUMBERED,
-        })
-      );
+        const allCards = await extractCardsFromPages(pdfAssetMetadata, pages);
+        const allCardsWithType = allCards.map(
+          (typeLessMetadata, cardIndex): CardMetadata => ({
+            ...typeLessMetadata,
+            type: pdfAssetMetadata.introductionCards.includes(cardIndex)
+              ? CardType.INTRODUCTION
+              : CardType.NUMBERED,
+          })
+        );
 
-      return {
-        scenarioPublicName: pdfAssetMetadata.filename,
-        cards: R.fromPairs(
-          allCardsWithType.map((cardMetadata) => [
-            cardMetadata.id,
-            cardMetadata,
-          ])
-        ),
-      };
-    })
+        return {
+          scenarioPublicName: pdfAssetMetadata.filename,
+          cards: R.fromPairs(
+            allCardsWithType.map((cardMetadata) => [
+              cardMetadata.id,
+              cardMetadata,
+            ])
+          ),
+        };
+      }
+    )
   );
 
   await fs.promises.writeFile(
