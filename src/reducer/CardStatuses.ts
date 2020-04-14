@@ -2,6 +2,7 @@ import * as R from "ramda";
 import { CardType, ConvertedAssetsMetadata } from "../types/metadata";
 import { getMetadataForName } from "../tools/metadataHandling";
 
+/* Typing */
 export enum CardStatus {
   VISIBLE_FACE = "VISIBLE_FACE",
   SECRET_FACE = "SECRET_FACE",
@@ -40,6 +41,7 @@ type Action =
       cardId: string;
     };
 
+/* Initializer */
 export const initCardStatusReducer = (
   scenarioName: string | string[] | undefined
 ): State => {
@@ -71,6 +73,7 @@ export const initCardStatusReducer = (
 const moveElementLast = <T>(array: Readonly<T[]>, elementToMoveLast: T): T[] =>
   R.append(elementToMoveLast, R.without([elementToMoveLast], array));
 
+/* Reducer */
 export const cardStatusReducer = (
   state: Readonly<State>,
   action: Action
@@ -142,6 +145,7 @@ export const cardStatusReducer = (
   }
 };
 
+/* Selectors */
 const getAllCardsOrdered = (state: State) =>
   state.orderedCards.map((id) => state.scenarioAssetsMetadata.cards[id]);
 const getAllIntroCardsOrdered = (state: State) =>
