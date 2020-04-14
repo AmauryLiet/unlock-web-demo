@@ -115,28 +115,24 @@ export const cardStatusReducer = (
           `Tried to reveal a non visible card "${action.cardId}" was "${cardFormerStatus}"`
         );
 
-      const cardsOrder = moveElementLast(state.cardsOrder, action.cardId);
-
       return {
         ...state,
         cardsStatus: {
           ...state.cardsStatus,
           [action.cardId]: CardStatus.SECRET_FACE,
         },
-        cardsOrder,
+        cardsOrder: moveElementLast(state.cardsOrder, action.cardId),
       };
     }
 
     case ActionName.DISCARD_CARD: {
-      const cardsOrder = moveElementLast(state.cardsOrder, action.cardId);
-
       return {
         ...state,
         cardsStatus: {
           ...state.cardsStatus,
           [action.cardId]: CardStatus.DISCARDED,
         },
-        cardsOrder,
+        cardsOrder: moveElementLast(state.cardsOrder, action.cardId),
       };
     }
 
