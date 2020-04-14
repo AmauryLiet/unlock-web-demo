@@ -28,7 +28,7 @@ export default ({
   const height = heightMapping[size];
 
   return (
-    <div {...divProps}>
+    <div className="root" {...divProps}>
       <img
         className="secretSide"
         src={`/${cardMetadata.secretSidePath}`}
@@ -36,8 +36,13 @@ export default ({
       />
       <img src={`/${cardMetadata.visibleSidePath}`} alt={alt} />
       <style jsx>{`
-        div {
+        .root {
           height: ${height}px;
+          position: relative;
+          border: 3px solid transparent;
+        }
+        .root:hover {
+          border-color: darkgrey;
         }
         img {
           transition: opacity 100ms;
@@ -46,12 +51,6 @@ export default ({
         img.secretSide {
           position: absolute;
           opacity: ${showSecretSide ? 1 : 0};
-        }
-        div {
-          border: 3px solid transparent;
-        }
-        div:hover {
-          border-color: darkgrey;
         }
       `}</style>
     </div>
