@@ -1,5 +1,5 @@
 import * as R from "ramda";
-import { CardType, ConvertedAssetsMetadata } from "../types/metadata";
+import { CardMetadata, CardType } from "../types/metadata";
 import { getMetadataForName } from "../tools/metadataHandling";
 
 /* Typing */
@@ -11,7 +11,7 @@ export enum CardStatus {
 }
 
 interface State {
-  scenarioAssetsMetadata: ConvertedAssetsMetadata;
+  cardEntitiesById: { [id: string]: CardMetadata };
   cardsStatus: { [id: string]: CardStatus };
   cardsOrder: string[];
 }
@@ -61,7 +61,7 @@ export const initCardStatusReducer = (
   };
 
   return {
-    scenarioAssetsMetadata,
+    cardEntitiesById: scenarioAssetsMetadata.cards,
     cardsStatus: R.map(
       ({ type }) => typeToStatusMapping[type],
       scenarioAssetsMetadata.cards
@@ -144,7 +144,7 @@ export const cardStatusReducer = (
 
 /* Selectors */
 const getAllCardsOrdered = (state: State) =>
-  state.cardsOrder.map((id) => state.scenarioAssetsMetadata.cards[id]);
+  state.cardsOrder.map((id) => state.cardEntitiesById[id]);
 const getAllIntroCardsOrdered = (state: State) =>
   getAllCardsOrdered(state).filter(R.propEq("type", CardType.INTRODUCTION));
 const getAllNumberedCardsOrdered = (state: State) =>
