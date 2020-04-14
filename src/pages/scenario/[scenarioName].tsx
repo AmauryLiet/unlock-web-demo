@@ -61,7 +61,6 @@ export default () => {
         {cardStatusSelectors.getVisibleIntroCards(store).map((cardMetadata) => (
           <CardPictureWithFooter
             key={cardMetadata.visibleSidePath}
-            onCardPictureClick={() => flipIntroCard(cardMetadata.id)}
             cardMetadata={cardMetadata}
             alt="Introduction card"
             picSize={PictureSizes.medium}
@@ -69,6 +68,12 @@ export default () => {
               store,
               cardMetadata.id
             )}
+            actions={[
+              {
+                label: "Retourner",
+                onClick: () => flipIntroCard(cardMetadata.id),
+              },
+            ]}
           >
             <span onClick={() => discardCard(cardMetadata.id)}>Jeter</span>
           </CardPictureWithFooter>
@@ -82,9 +87,15 @@ export default () => {
               alt="Flipped card"
               picSize={PictureSizes.medium}
               showSecretSide
-              onCardPictureClick={() =>
-                window.open(`${location.origin}/${cardMetadata.secretSidePath}`)
-              }
+              actions={[
+                {
+                  label: "Agrandir",
+                  onClick: () =>
+                    window.open(
+                      `${location.origin}/${cardMetadata.secretSidePath}`
+                    ),
+                },
+              ]}
             >
               <span onClick={() => discardCard(cardMetadata.id)}>Jeter</span>
             </CardPictureWithFooter>
@@ -100,6 +111,7 @@ export default () => {
               cardMetadata={cardMetadata}
               alt="Available card"
               picSize={PictureSizes.small}
+              actions={[]}
             >
               <span onClick={() => revealCard(cardMetadata.id)}>Retourner</span>
             </CardPictureWithFooter>
@@ -116,6 +128,7 @@ export default () => {
               alt="Discarded card"
               picSize={PictureSizes.small}
               showSecretSide
+              actions={[]}
             >
               <span onClick={() => revealCard(cardMetadata.id)}>Restaurer</span>
             </CardPictureWithFooter>

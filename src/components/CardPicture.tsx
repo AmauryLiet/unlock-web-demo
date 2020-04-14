@@ -11,6 +11,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   alt: string;
   size: PictureSizes;
   showSecretSide?: boolean;
+  actions: Action[];
 }
 
 const heightMapping: { [key in PictureSizes]: number } = {
@@ -18,11 +19,17 @@ const heightMapping: { [key in PictureSizes]: number } = {
   [PictureSizes.medium]: 500,
 };
 
+export interface Action {
+  label: string;
+  onClick: () => void;
+}
+
 export default ({
   cardMetadata,
   alt,
   size,
   showSecretSide = false,
+  actions,
   ...divProps
 }: Props) => {
   const height = heightMapping[size];
@@ -35,6 +42,13 @@ export default ({
         alt={alt}
       />
       <img src={`/${cardMetadata.visibleSidePath}`} alt={alt} />
+      <div className="actionContainer">
+        {actions.map(({ label, onClick }) => (
+          <div key={label} className="action" onClick={onClick}>
+            {label}
+          </div>
+        ))}
+      </div>
       <style jsx>{`
         .root {
           height: ${height}px;
@@ -51,6 +65,20 @@ export default ({
         img.secretSide {
           position: absolute;
           opacity: ${showSecretSide ? 1 : 0};
+        }
+        .actionContainer {
+          position: absolute;
+          top: 0;
+          width: 100%;
+          height: 100%;
+
+          display: flex;
+          flex-direction: column-reverse;
+        }
+        .action {
+          height: 15%;
+          background-color: lightgrey;
+          opacity: 0.8;
         }
       `}</style>
     </div>

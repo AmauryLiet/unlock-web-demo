@@ -1,6 +1,6 @@
 import React from "react";
 import { CardMetadata } from "../types/metadata";
-import CardPicture, { PictureSizes } from "./CardPicture";
+import CardPicture, { Action, PictureSizes } from "./CardPicture";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   cardMetadata: CardMetadata;
@@ -8,7 +8,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   alt: string;
   children: React.ReactNode;
   showSecretSide?: boolean;
-  onCardPictureClick?: () => void;
+  actions: Action[];
 }
 
 export default ({
@@ -17,7 +17,7 @@ export default ({
   alt,
   showSecretSide,
   children,
-  onCardPictureClick,
+  actions,
 
   style,
   ...divProps
@@ -32,7 +32,7 @@ export default ({
         alt={alt}
         size={picSize}
         showSecretSide={showSecretSide}
-        onClick={onCardPictureClick}
+        actions={actions}
       />
       {children}
     </div>

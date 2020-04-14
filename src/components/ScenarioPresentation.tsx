@@ -19,6 +19,7 @@ export default ({ scenarioMetadata, href }: Props) => {
           cardMetadata={getFirstIntroductionCard(scenarioMetadata)}
           alt="my image"
           picSize={PictureSizes.medium}
+          actions={[]}
         >
           <span style={{ textAlign: "center" }}>
             {scenarioMetadata.scenarioPublicName}
