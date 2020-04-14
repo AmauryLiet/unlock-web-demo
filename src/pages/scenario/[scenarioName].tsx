@@ -56,7 +56,7 @@ export default () => {
   return (
     <div>
       <h2>{scenarioName}</h2>
-      <h3>Cartes de départ 🏡</h3>
+      <h3>Cartes retournées 👀</h3>
       <CardList>
         {cardStatusSelectors.getVisibleIntroCards(store).map((cardMetadata) => (
           <CardPictureWithFooter
@@ -72,9 +72,6 @@ export default () => {
             <span onClick={() => discardCard(cardMetadata.id)}>Jeter</span>
           </CardPictureWithFooter>
         ))}
-      </CardList>
-      <h3>Cartes retournées 👀</h3>
-      <CardList>
         {cardStatusSelectors
           .getNumberedCardsByStatus(store, CardStatus.SECRET_FACE)
           .map((cardMetadata) => (
