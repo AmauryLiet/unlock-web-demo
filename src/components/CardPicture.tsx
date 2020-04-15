@@ -45,7 +45,7 @@ export default ({
       <div className="actionContainer">
         {actions.map(({ label, onClick }) => (
           <div key={label} className="action" onClick={onClick}>
-            {label}
+            <span>{label}</span>
           </div>
         ))}
       </div>
@@ -53,14 +53,11 @@ export default ({
         .root {
           height: ${height}px;
           position: relative;
-          border: 3px solid transparent;
-        }
-        .root:hover {
-          border-color: darkgrey;
         }
         img {
           transition: opacity 100ms;
           height: ${height}px;
+          border-radius: 5px;
         }
         img.secretSide {
           position: absolute;
@@ -74,11 +71,35 @@ export default ({
 
           display: flex;
           flex-direction: column-reverse;
+
+          transition: opacity 200ms;
+          opacity: 0;
+        }
+        .root:hover .actionContainer {
+          opacity: 1;
         }
         .action {
           height: 15%;
-          background-color: lightgrey;
-          opacity: 0.8;
+
+          border: 3px solid transparent;
+          background-color: rgba(200, 200, 200, 0.8);
+          transition: background-color 200ms, border 200ms, text-shadow 200ms;
+
+          // about contained text
+          display: flex;
+          align-items: center;
+          padding-left: 5%;
+          font-weight: bold;
+
+          user-select: none;
+          cursor: pointer;
+
+          font-size: ${size === PictureSizes.small ? "small" : "unset"};
+        }
+        .action:hover {
+          text-shadow: 0 0 3px beige;
+          background-color: rgba(150, 150, 150, 0.9);
+          border-color: rgb(100, 100, 100);
         }
       `}</style>
     </div>
