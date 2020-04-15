@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 import { getFirstIntroductionCard } from "../tools/metadataHandling";
 import { ConvertedAssetsMetadata } from "../types/metadata";
@@ -13,19 +12,18 @@ interface Props {
 export default ({ scenarioMetadata, href }: Props) => {
   return (
     <>
-      <Link href={href}>
-        <CardPictureWithFooter
-          className="scenarioCard"
-          cardMetadata={getFirstIntroductionCard(scenarioMetadata)}
-          alt="my image"
-          picSize={PictureSizes.medium}
-          actions={[]}
-        >
-          <span style={{ textAlign: "center" }}>
-            {scenarioMetadata.scenarioPublicName}
-          </span>
-        </CardPictureWithFooter>
-      </Link>
+      <CardPictureWithFooter
+        className="scenarioCard"
+        cardMetadata={getFirstIntroductionCard(scenarioMetadata)}
+        alt="my image"
+        picSize={PictureSizes.medium}
+        actions={[]}
+        cardHref={href}
+      >
+        <span style={{ textAlign: "center" }}>
+          {scenarioMetadata.scenarioPublicName}
+        </span>
+      </CardPictureWithFooter>
       <style jsx>{`
         .scenarioCard {
           background-color: beige;

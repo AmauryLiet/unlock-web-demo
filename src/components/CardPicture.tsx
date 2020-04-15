@@ -12,6 +12,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   size: PictureSizes;
   showSecretSide?: boolean;
   actions: Action[];
+  clickable?: boolean;
 }
 
 const heightMapping: { [key in PictureSizes]: number } = {
@@ -30,12 +31,13 @@ export default ({
   size,
   showSecretSide = false,
   actions,
+  clickable = false,
   ...divProps
 }: Props) => {
   const height = heightMapping[size];
 
   return (
-    <div className="root" {...divProps}>
+    <div className={`root ${clickable ? "clickable" : ""}`} {...divProps}>
       <img
         className="secretSide"
         src={`/${cardMetadata.secretSidePath}`}
@@ -53,6 +55,13 @@ export default ({
         .root {
           height: ${height}px;
           position: relative;
+        }
+        .root.clickable {
+          cursor: pointer;
+          border: 3px solid transparent;
+        }
+        .root.clickable:hover {
+          border-color: darkgrey;
         }
         img {
           transition: opacity 100ms;
