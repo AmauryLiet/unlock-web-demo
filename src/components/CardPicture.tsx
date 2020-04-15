@@ -79,7 +79,8 @@ export default ({
           height: 100%;
 
           display: flex;
-          flex-direction: column-reverse;
+          flex-direction: column;
+          justify-content: end;
 
           transition: opacity 200ms;
           opacity: 0;
