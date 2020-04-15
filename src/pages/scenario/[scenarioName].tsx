@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useReducer } from "react";
 import CardList from "../../components/CardList";
-import { PictureSizes } from "../../components/CardPicture";
-import CardPictureWithFooter from "../../components/CardPictureWithFooter";
+import CardPicture, { PictureSizes } from "../../components/CardPicture";
 import {
   ActionName,
   CardStatus,
@@ -59,11 +58,11 @@ export default () => {
       <h3>Cartes retournées 👀</h3>
       <CardList>
         {cardStatusSelectors.getVisibleIntroCards(store).map((cardMetadata) => (
-          <CardPictureWithFooter
+          <CardPicture
             key={cardMetadata.visibleSidePath}
             cardMetadata={cardMetadata}
             alt="Introduction card"
-            picSize={PictureSizes.medium}
+            size={PictureSizes.medium}
             showSecretSide={cardStatusSelectors.isCardOnSecretFace(
               store,
               cardMetadata.id
@@ -73,19 +72,18 @@ export default () => {
                 label: "Retourner",
                 onClick: () => flipIntroCard(cardMetadata.id),
               },
+              { label: "Jeter", onClick: () => discardCard(cardMetadata.id) },
             ]}
-          >
-            <span onClick={() => discardCard(cardMetadata.id)}>Jeter</span>
-          </CardPictureWithFooter>
+          />
         ))}
         {cardStatusSelectors
           .getNumberedCardsByStatus(store, CardStatus.SECRET_FACE)
           .map((cardMetadata) => (
-            <CardPictureWithFooter
+            <CardPicture
               key={cardMetadata.visibleSidePath}
               cardMetadata={cardMetadata}
               alt="Flipped card"
-              picSize={PictureSizes.medium}
+              size={PictureSizes.medium}
               showSecretSide
               actions={[
                 {
@@ -95,10 +93,12 @@ export default () => {
                       `${location.origin}/${cardMetadata.secretSidePath}`
                     ),
                 },
+                {
+                  label: "Jeter",
+                  onClick: () => discardCard(cardMetadata.id),
+                },
               ]}
-            >
-              <span onClick={() => discardCard(cardMetadata.id)}>Jeter</span>
-            </CardPictureWithFooter>
+            />
           ))}
       </CardList>
       <h3>Cartes dispos 🃏</h3>
@@ -106,15 +106,18 @@ export default () => {
         {cardStatusSelectors
           .getNumberedCardsByStatus(store, CardStatus.AVAILABLE)
           .map((cardMetadata) => (
-            <CardPictureWithFooter
+            <CardPicture
               key={cardMetadata.visibleSidePath}
               cardMetadata={cardMetadata}
               alt="Available card"
-              picSize={PictureSizes.small}
-              actions={[]}
-            >
-              <span onClick={() => revealCard(cardMetadata.id)}>Retourner</span>
-            </CardPictureWithFooter>
+              size={PictureSizes.small}
+              actions={[
+                {
+                  label: "Retourner",
+                  onClick: () => revealCard(cardMetadata.id),
+                },
+              ]}
+            />
           ))}
       </CardList>
       <h3>Cartes supprimées 🗑</h3>
@@ -122,16 +125,19 @@ export default () => {
         {cardStatusSelectors
           .getAllCardsByStatus(store, CardStatus.DISCARDED)
           .map((cardMetadata) => (
-            <CardPictureWithFooter
+            <CardPicture
               key={cardMetadata.visibleSidePath}
               cardMetadata={cardMetadata}
               alt="Discarded card"
-              picSize={PictureSizes.small}
+              size={PictureSizes.small}
               showSecretSide
-              actions={[]}
-            >
-              <span onClick={() => revealCard(cardMetadata.id)}>Restaurer</span>
-            </CardPictureWithFooter>
+              actions={[
+                {
+                  label: "Restaurer",
+                  onClick: () => revealCard(cardMetadata.id),
+                },
+              ]}
+            />
           ))}
       </CardList>
     </div>
