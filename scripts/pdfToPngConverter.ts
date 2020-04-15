@@ -132,7 +132,7 @@ const extractCardsFromPages = async (
         );
         const visibleSideRelativePath = path.join(
           assetsDirRelativePath,
-          `${cardIndex}-visible.png`
+          `${cardIndex}-visible.webp`
         );
         const cardVisibleSidePath = path.join(
           cardsAssetsDir,
@@ -147,7 +147,7 @@ const extractCardsFromPages = async (
         );
         const secretSideRelativePath = path.join(
           assetsDirRelativePath,
-          `${cardIndex}-secret.png`
+          `${cardIndex}-secret.webp`
         );
         const cardSecretSidePath = path.join(
           cardsAssetsDir,
