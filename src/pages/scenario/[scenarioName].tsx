@@ -69,10 +69,10 @@ export default () => {
             )}
             actions={[
               {
-                label: "Retourner",
+                label: "🔄 Retourner",
                 onClick: () => flipIntroCard(cardMetadata.id),
               },
-              { label: "Jeter", onClick: () => discardCard(cardMetadata.id) },
+              { label: "🗑 Jeter", onClick: () => discardCard(cardMetadata.id) },
             ]}
           />
         ))}
@@ -87,14 +87,14 @@ export default () => {
               showSecretSide
               actions={[
                 {
-                  label: "Agrandir",
+                  label: "🔎 Agrandir",
                   onClick: () =>
                     window.open(
                       `${location.origin}/${cardMetadata.secretSidePath}`
                     ),
                 },
                 {
-                  label: "Jeter",
+                  label: "🗑 Jeter",
                   onClick: () => discardCard(cardMetadata.id),
                 },
               ]}
@@ -113,7 +113,7 @@ export default () => {
               size={PictureSizes.small}
               actions={[
                 {
-                  label: "Retourner",
+                  label: "👀 Retourner",
                   onClick: () => revealCard(cardMetadata.id),
                 },
               ]}
@@ -133,7 +133,7 @@ export default () => {
               showSecretSide
               actions={[
                 {
-                  label: "Restaurer",
+                  label: "⏪ Restaurer",
                   onClick: () => revealCard(cardMetadata.id),
                 },
               ]}
