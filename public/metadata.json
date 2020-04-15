@@ -1,0 +1,806 @@
+[
+  {
+    "scenarioPublicName": "0 - tutorial",
+    "cards": {
+      "0": {
+        "id": "0",
+        "visibleSidePath": "0 - tutorial/0-visible.webp",
+        "secretSidePath": "0 - tutorial/0-secret.webp",
+        "type": "INTRODUCTION"
+      },
+      "1": {
+        "id": "1",
+        "visibleSidePath": "0 - tutorial/1-visible.webp",
+        "secretSidePath": "0 - tutorial/1-secret.webp",
+        "type": "NUMBERED"
+      },
+      "2": {
+        "id": "2",
+        "visibleSidePath": "0 - tutorial/2-visible.webp",
+        "secretSidePath": "0 - tutorial/2-secret.webp",
+        "type": "NUMBERED"
+      },
+      "3": {
+        "id": "3",
+        "visibleSidePath": "0 - tutorial/3-visible.webp",
+        "secretSidePath": "0 - tutorial/3-secret.webp",
+        "type": "NUMBERED"
+      },
+      "4": {
+        "id": "4",
+        "visibleSidePath": "0 - tutorial/4-visible.webp",
+        "secretSidePath": "0 - tutorial/4-secret.webp",
+        "type": "NUMBERED"
+      },
+      "5": {
+        "id": "5",
+        "visibleSidePath": "0 - tutorial/5-visible.webp",
+        "secretSidePath": "0 - tutorial/5-secret.webp",
+        "type": "NUMBERED"
+      },
+      "6": {
+        "id": "6",
+        "visibleSidePath": "0 - tutorial/6-visible.webp",
+        "secretSidePath": "0 - tutorial/6-secret.webp",
+        "type": "NUMBERED"
+      },
+      "7": {
+        "id": "7",
+        "visibleSidePath": "0 - tutorial/7-visible.webp",
+        "secretSidePath": "0 - tutorial/7-secret.webp",
+        "type": "NUMBERED"
+      },
+      "8": {
+        "id": "8",
+        "visibleSidePath": "0 - tutorial/8-visible.webp",
+        "secretSidePath": "0 - tutorial/8-secret.webp",
+        "type": "NUMBERED"
+      },
+      "9": {
+        "id": "9",
+        "visibleSidePath": "0 - tutorial/9-visible.webp",
+        "secretSidePath": "0 - tutorial/9-secret.webp",
+        "type": "NUMBERED"
+      }
+    }
+  },
+  {
+    "scenarioPublicName": "1 - 5ème avenue",
+    "cards": {
+      "0": {
+        "id": "0",
+        "visibleSidePath": "1 - 5ème avenue/0-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/0-secret.webp",
+        "type": "NUMBERED"
+      },
+      "1": {
+        "id": "1",
+        "visibleSidePath": "1 - 5ème avenue/1-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/1-secret.webp",
+        "type": "INTRODUCTION"
+      },
+      "2": {
+        "id": "2",
+        "visibleSidePath": "1 - 5ème avenue/2-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/2-secret.webp",
+        "type": "INTRODUCTION"
+      },
+      "3": {
+        "id": "3",
+        "visibleSidePath": "1 - 5ème avenue/3-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/3-secret.webp",
+        "type": "NUMBERED"
+      },
+      "4": {
+        "id": "4",
+        "visibleSidePath": "1 - 5ème avenue/4-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/4-secret.webp",
+        "type": "NUMBERED"
+      },
+      "5": {
+        "id": "5",
+        "visibleSidePath": "1 - 5ème avenue/5-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/5-secret.webp",
+        "type": "NUMBERED"
+      },
+      "6": {
+        "id": "6",
+        "visibleSidePath": "1 - 5ème avenue/6-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/6-secret.webp",
+        "type": "NUMBERED"
+      },
+      "7": {
+        "id": "7",
+        "visibleSidePath": "1 - 5ème avenue/7-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/7-secret.webp",
+        "type": "NUMBERED"
+      },
+      "8": {
+        "id": "8",
+        "visibleSidePath": "1 - 5ème avenue/8-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/8-secret.webp",
+        "type": "NUMBERED"
+      },
+      "9": {
+        "id": "9",
+        "visibleSidePath": "1 - 5ème avenue/9-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/9-secret.webp",
+        "type": "NUMBERED"
+      },
+      "10": {
+        "id": "10",
+        "visibleSidePath": "1 - 5ème avenue/10-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/10-secret.webp",
+        "type": "NUMBERED"
+      },
+      "11": {
+        "id": "11",
+        "visibleSidePath": "1 - 5ème avenue/11-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/11-secret.webp",
+        "type": "NUMBERED"
+      },
+      "12": {
+        "id": "12",
+        "visibleSidePath": "1 - 5ème avenue/12-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/12-secret.webp",
+        "type": "NUMBERED"
+      },
+      "13": {
+        "id": "13",
+        "visibleSidePath": "1 - 5ème avenue/13-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/13-secret.webp",
+        "type": "NUMBERED"
+      },
+      "14": {
+        "id": "14",
+        "visibleSidePath": "1 - 5ème avenue/14-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/14-secret.webp",
+        "type": "NUMBERED"
+      },
+      "15": {
+        "id": "15",
+        "visibleSidePath": "1 - 5ème avenue/15-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/15-secret.webp",
+        "type": "NUMBERED"
+      },
+      "16": {
+        "id": "16",
+        "visibleSidePath": "1 - 5ème avenue/16-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/16-secret.webp",
+        "type": "NUMBERED"
+      },
+      "17": {
+        "id": "17",
+        "visibleSidePath": "1 - 5ème avenue/17-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/17-secret.webp",
+        "type": "NUMBERED"
+      },
+      "18": {
+        "id": "18",
+        "visibleSidePath": "1 - 5ème avenue/18-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/18-secret.webp",
+        "type": "NUMBERED"
+      },
+      "19": {
+        "id": "19",
+        "visibleSidePath": "1 - 5ème avenue/19-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/19-secret.webp",
+        "type": "NUMBERED"
+      },
+      "20": {
+        "id": "20",
+        "visibleSidePath": "1 - 5ème avenue/20-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/20-secret.webp",
+        "type": "NUMBERED"
+      },
+      "21": {
+        "id": "21",
+        "visibleSidePath": "1 - 5ème avenue/21-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/21-secret.webp",
+        "type": "NUMBERED"
+      },
+      "22": {
+        "id": "22",
+        "visibleSidePath": "1 - 5ème avenue/22-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/22-secret.webp",
+        "type": "NUMBERED"
+      },
+      "23": {
+        "id": "23",
+        "visibleSidePath": "1 - 5ème avenue/23-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/23-secret.webp",
+        "type": "NUMBERED"
+      },
+      "24": {
+        "id": "24",
+        "visibleSidePath": "1 - 5ème avenue/24-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/24-secret.webp",
+        "type": "INTRODUCTION"
+      },
+      "25": {
+        "id": "25",
+        "visibleSidePath": "1 - 5ème avenue/25-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/25-secret.webp",
+        "type": "NUMBERED"
+      },
+      "26": {
+        "id": "26",
+        "visibleSidePath": "1 - 5ème avenue/26-visible.webp",
+        "secretSidePath": "1 - 5ème avenue/26-secret.webp",
+        "type": "NUMBERED"
+      }
+    }
+  },
+  {
+    "scenarioPublicName": "2 - Le donjon de Doo-Arann",
+    "cards": {
+      "0": {
+        "id": "0",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/0-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/0-secret.webp",
+        "type": "INTRODUCTION"
+      },
+      "1": {
+        "id": "1",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/1-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/1-secret.webp",
+        "type": "INTRODUCTION"
+      },
+      "2": {
+        "id": "2",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/2-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/2-secret.webp",
+        "type": "INTRODUCTION"
+      },
+      "3": {
+        "id": "3",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/3-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/3-secret.webp",
+        "type": "NUMBERED"
+      },
+      "4": {
+        "id": "4",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/4-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/4-secret.webp",
+        "type": "NUMBERED"
+      },
+      "5": {
+        "id": "5",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/5-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/5-secret.webp",
+        "type": "NUMBERED"
+      },
+      "6": {
+        "id": "6",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/6-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/6-secret.webp",
+        "type": "NUMBERED"
+      },
+      "7": {
+        "id": "7",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/7-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/7-secret.webp",
+        "type": "NUMBERED"
+      },
+      "8": {
+        "id": "8",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/8-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/8-secret.webp",
+        "type": "NUMBERED"
+      },
+      "9": {
+        "id": "9",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/9-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/9-secret.webp",
+        "type": "NUMBERED"
+      },
+      "10": {
+        "id": "10",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/10-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/10-secret.webp",
+        "type": "NUMBERED"
+      },
+      "11": {
+        "id": "11",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/11-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/11-secret.webp",
+        "type": "NUMBERED"
+      },
+      "12": {
+        "id": "12",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/12-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/12-secret.webp",
+        "type": "NUMBERED"
+      },
+      "13": {
+        "id": "13",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/13-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/13-secret.webp",
+        "type": "NUMBERED"
+      },
+      "14": {
+        "id": "14",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/14-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/14-secret.webp",
+        "type": "NUMBERED"
+      },
+      "15": {
+        "id": "15",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/15-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/15-secret.webp",
+        "type": "NUMBERED"
+      },
+      "16": {
+        "id": "16",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/16-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/16-secret.webp",
+        "type": "NUMBERED"
+      },
+      "17": {
+        "id": "17",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/17-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/17-secret.webp",
+        "type": "NUMBERED"
+      },
+      "18": {
+        "id": "18",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/18-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/18-secret.webp",
+        "type": "NUMBERED"
+      },
+      "19": {
+        "id": "19",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/19-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/19-secret.webp",
+        "type": "NUMBERED"
+      },
+      "20": {
+        "id": "20",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/20-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/20-secret.webp",
+        "type": "NUMBERED"
+      },
+      "21": {
+        "id": "21",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/21-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/21-secret.webp",
+        "type": "NUMBERED"
+      },
+      "22": {
+        "id": "22",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/22-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/22-secret.webp",
+        "type": "NUMBERED"
+      },
+      "23": {
+        "id": "23",
+        "visibleSidePath": "2 - Le donjon de Doo-Arann/23-visible.webp",
+        "secretSidePath": "2 - Le donjon de Doo-Arann/23-secret.webp",
+        "type": "NUMBERED"
+      }
+    }
+  },
+  {
+    "scenarioPublicName": "3 - La chambre d'hôtel",
+    "cards": {
+      "0": {
+        "id": "0",
+        "visibleSidePath": "3 - La chambre d'hôtel/0-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/0-secret.webp",
+        "type": "INTRODUCTION"
+      },
+      "1": {
+        "id": "1",
+        "visibleSidePath": "3 - La chambre d'hôtel/1-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/1-secret.webp",
+        "type": "NUMBERED"
+      },
+      "2": {
+        "id": "2",
+        "visibleSidePath": "3 - La chambre d'hôtel/2-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/2-secret.webp",
+        "type": "NUMBERED"
+      },
+      "3": {
+        "id": "3",
+        "visibleSidePath": "3 - La chambre d'hôtel/3-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/3-secret.webp",
+        "type": "NUMBERED"
+      },
+      "4": {
+        "id": "4",
+        "visibleSidePath": "3 - La chambre d'hôtel/4-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/4-secret.webp",
+        "type": "NUMBERED"
+      },
+      "5": {
+        "id": "5",
+        "visibleSidePath": "3 - La chambre d'hôtel/5-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/5-secret.webp",
+        "type": "NUMBERED"
+      },
+      "6": {
+        "id": "6",
+        "visibleSidePath": "3 - La chambre d'hôtel/6-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/6-secret.webp",
+        "type": "NUMBERED"
+      },
+      "7": {
+        "id": "7",
+        "visibleSidePath": "3 - La chambre d'hôtel/7-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/7-secret.webp",
+        "type": "NUMBERED"
+      },
+      "8": {
+        "id": "8",
+        "visibleSidePath": "3 - La chambre d'hôtel/8-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/8-secret.webp",
+        "type": "NUMBERED"
+      },
+      "9": {
+        "id": "9",
+        "visibleSidePath": "3 - La chambre d'hôtel/9-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/9-secret.webp",
+        "type": "NUMBERED"
+      },
+      "10": {
+        "id": "10",
+        "visibleSidePath": "3 - La chambre d'hôtel/10-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/10-secret.webp",
+        "type": "NUMBERED"
+      },
+      "11": {
+        "id": "11",
+        "visibleSidePath": "3 - La chambre d'hôtel/11-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/11-secret.webp",
+        "type": "NUMBERED"
+      },
+      "12": {
+        "id": "12",
+        "visibleSidePath": "3 - La chambre d'hôtel/12-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/12-secret.webp",
+        "type": "NUMBERED"
+      },
+      "13": {
+        "id": "13",
+        "visibleSidePath": "3 - La chambre d'hôtel/13-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/13-secret.webp",
+        "type": "NUMBERED"
+      },
+      "14": {
+        "id": "14",
+        "visibleSidePath": "3 - La chambre d'hôtel/14-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/14-secret.webp",
+        "type": "NUMBERED"
+      },
+      "15": {
+        "id": "15",
+        "visibleSidePath": "3 - La chambre d'hôtel/15-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/15-secret.webp",
+        "type": "NUMBERED"
+      },
+      "16": {
+        "id": "16",
+        "visibleSidePath": "3 - La chambre d'hôtel/16-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/16-secret.webp",
+        "type": "NUMBERED"
+      },
+      "17": {
+        "id": "17",
+        "visibleSidePath": "3 - La chambre d'hôtel/17-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/17-secret.webp",
+        "type": "NUMBERED"
+      },
+      "18": {
+        "id": "18",
+        "visibleSidePath": "3 - La chambre d'hôtel/18-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/18-secret.webp",
+        "type": "NUMBERED"
+      },
+      "19": {
+        "id": "19",
+        "visibleSidePath": "3 - La chambre d'hôtel/19-visible.webp",
+        "secretSidePath": "3 - La chambre d'hôtel/19-secret.webp",
+        "type": "NUMBERED"
+      }
+    }
+  },
+  {
+    "scenarioPublicName": "4 - A la poursuite de Cabrakan",
+    "cards": {
+      "0": {
+        "id": "0",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/0-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/0-secret.webp",
+        "type": "INTRODUCTION"
+      },
+      "1": {
+        "id": "1",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/1-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/1-secret.webp",
+        "type": "INTRODUCTION"
+      },
+      "2": {
+        "id": "2",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/2-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/2-secret.webp",
+        "type": "INTRODUCTION"
+      },
+      "3": {
+        "id": "3",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/3-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/3-secret.webp",
+        "type": "NUMBERED"
+      },
+      "4": {
+        "id": "4",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/4-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/4-secret.webp",
+        "type": "NUMBERED"
+      },
+      "5": {
+        "id": "5",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/5-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/5-secret.webp",
+        "type": "NUMBERED"
+      },
+      "6": {
+        "id": "6",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/6-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/6-secret.webp",
+        "type": "NUMBERED"
+      },
+      "7": {
+        "id": "7",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/7-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/7-secret.webp",
+        "type": "NUMBERED"
+      },
+      "8": {
+        "id": "8",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/8-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/8-secret.webp",
+        "type": "NUMBERED"
+      },
+      "9": {
+        "id": "9",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/9-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/9-secret.webp",
+        "type": "NUMBERED"
+      },
+      "10": {
+        "id": "10",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/10-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/10-secret.webp",
+        "type": "NUMBERED"
+      },
+      "11": {
+        "id": "11",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/11-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/11-secret.webp",
+        "type": "NUMBERED"
+      },
+      "12": {
+        "id": "12",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/12-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/12-secret.webp",
+        "type": "NUMBERED"
+      },
+      "13": {
+        "id": "13",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/13-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/13-secret.webp",
+        "type": "NUMBERED"
+      },
+      "14": {
+        "id": "14",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/14-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/14-secret.webp",
+        "type": "NUMBERED"
+      },
+      "15": {
+        "id": "15",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/15-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/15-secret.webp",
+        "type": "NUMBERED"
+      },
+      "16": {
+        "id": "16",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/16-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/16-secret.webp",
+        "type": "NUMBERED"
+      },
+      "17": {
+        "id": "17",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/17-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/17-secret.webp",
+        "type": "NUMBERED"
+      },
+      "18": {
+        "id": "18",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/18-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/18-secret.webp",
+        "type": "NUMBERED"
+      },
+      "19": {
+        "id": "19",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/19-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/19-secret.webp",
+        "type": "NUMBERED"
+      },
+      "20": {
+        "id": "20",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/20-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/20-secret.webp",
+        "type": "NUMBERED"
+      },
+      "21": {
+        "id": "21",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/21-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/21-secret.webp",
+        "type": "INTRODUCTION"
+      },
+      "22": {
+        "id": "22",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/22-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/22-secret.webp",
+        "type": "INTRODUCTION"
+      },
+      "23": {
+        "id": "23",
+        "visibleSidePath": "4 - A la poursuite de Cabrakan/23-visible.webp",
+        "secretSidePath": "4 - A la poursuite de Cabrakan/23-secret.webp",
+        "type": "NUMBERED"
+      }
+    }
+  },
+  {
+    "scenarioPublicName": "5 - L’autel du dieu RA",
+    "cards": {
+      "0": {
+        "id": "0",
+        "visibleSidePath": "5 - L’autel du dieu RA/0-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/0-secret.webp",
+        "type": "NUMBERED"
+      },
+      "1": {
+        "id": "1",
+        "visibleSidePath": "5 - L’autel du dieu RA/1-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/1-secret.webp",
+        "type": "NUMBERED"
+      },
+      "2": {
+        "id": "2",
+        "visibleSidePath": "5 - L’autel du dieu RA/2-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/2-secret.webp",
+        "type": "INTRODUCTION"
+      },
+      "3": {
+        "id": "3",
+        "visibleSidePath": "5 - L’autel du dieu RA/3-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/3-secret.webp",
+        "type": "NUMBERED"
+      },
+      "4": {
+        "id": "4",
+        "visibleSidePath": "5 - L’autel du dieu RA/4-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/4-secret.webp",
+        "type": "NUMBERED"
+      },
+      "5": {
+        "id": "5",
+        "visibleSidePath": "5 - L’autel du dieu RA/5-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/5-secret.webp",
+        "type": "NUMBERED"
+      },
+      "6": {
+        "id": "6",
+        "visibleSidePath": "5 - L’autel du dieu RA/6-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/6-secret.webp",
+        "type": "NUMBERED"
+      },
+      "7": {
+        "id": "7",
+        "visibleSidePath": "5 - L’autel du dieu RA/7-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/7-secret.webp",
+        "type": "NUMBERED"
+      },
+      "8": {
+        "id": "8",
+        "visibleSidePath": "5 - L’autel du dieu RA/8-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/8-secret.webp",
+        "type": "NUMBERED"
+      },
+      "9": {
+        "id": "9",
+        "visibleSidePath": "5 - L’autel du dieu RA/9-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/9-secret.webp",
+        "type": "NUMBERED"
+      },
+      "10": {
+        "id": "10",
+        "visibleSidePath": "5 - L’autel du dieu RA/10-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/10-secret.webp",
+        "type": "NUMBERED"
+      },
+      "11": {
+        "id": "11",
+        "visibleSidePath": "5 - L’autel du dieu RA/11-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/11-secret.webp",
+        "type": "NUMBERED"
+      },
+      "12": {
+        "id": "12",
+        "visibleSidePath": "5 - L’autel du dieu RA/12-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/12-secret.webp",
+        "type": "NUMBERED"
+      },
+      "13": {
+        "id": "13",
+        "visibleSidePath": "5 - L’autel du dieu RA/13-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/13-secret.webp",
+        "type": "NUMBERED"
+      },
+      "14": {
+        "id": "14",
+        "visibleSidePath": "5 - L’autel du dieu RA/14-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/14-secret.webp",
+        "type": "NUMBERED"
+      },
+      "15": {
+        "id": "15",
+        "visibleSidePath": "5 - L’autel du dieu RA/15-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/15-secret.webp",
+        "type": "NUMBERED"
+      },
+      "16": {
+        "id": "16",
+        "visibleSidePath": "5 - L’autel du dieu RA/16-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/16-secret.webp",
+        "type": "NUMBERED"
+      },
+      "17": {
+        "id": "17",
+        "visibleSidePath": "5 - L’autel du dieu RA/17-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/17-secret.webp",
+        "type": "NUMBERED"
+      },
+      "18": {
+        "id": "18",
+        "visibleSidePath": "5 - L’autel du dieu RA/18-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/18-secret.webp",
+        "type": "NUMBERED"
+      },
+      "19": {
+        "id": "19",
+        "visibleSidePath": "5 - L’autel du dieu RA/19-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/19-secret.webp",
+        "type": "NUMBERED"
+      },
+      "20": {
+        "id": "20",
+        "visibleSidePath": "5 - L’autel du dieu RA/20-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/20-secret.webp",
+        "type": "NUMBERED"
+      },
+      "21": {
+        "id": "21",
+        "visibleSidePath": "5 - L’autel du dieu RA/21-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/21-secret.webp",
+        "type": "NUMBERED"
+      },
+      "22": {
+        "id": "22",
+        "visibleSidePath": "5 - L’autel du dieu RA/22-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/22-secret.webp",
+        "type": "NUMBERED"
+      },
+      "23": {
+        "id": "23",
+        "visibleSidePath": "5 - L’autel du dieu RA/23-visible.webp",
+        "secretSidePath": "5 - L’autel du dieu RA/23-secret.webp",
+        "type": "NUMBERED"
+      }
+    }
+  }
+]

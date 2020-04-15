@@ -107,5 +107,4 @@ dist
 \.DS_Store
 
 # Converted assets
-*.png
-public/metadata.json
+assets/**/*.png
