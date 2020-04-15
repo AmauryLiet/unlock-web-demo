@@ -9,7 +9,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   alt: string;
   children: React.ReactNode;
   showSecretSide?: boolean;
-  actions: Action[];
+  actions?: Action[];
   cardHref?: string;
 }
 

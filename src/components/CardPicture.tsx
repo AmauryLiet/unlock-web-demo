@@ -11,7 +11,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   alt: string;
   size: PictureSizes;
   showSecretSide?: boolean;
-  actions: Action[];
+  actions?: Action[];
   clickable?: boolean;
 }
 
@@ -30,7 +30,7 @@ export default ({
   alt,
   size,
   showSecretSide = false,
-  actions,
+  actions = [],
   clickable = false,
   ...divProps
 }: Props) => {
