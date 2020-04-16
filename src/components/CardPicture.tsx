@@ -92,8 +92,10 @@ export default ({
           height: 15%;
 
           border: 3px solid transparent;
-          background-color: rgba(200, 200, 200, 0.8);
-          transition: background-color 200ms, border 200ms, text-shadow 200ms;
+          background-color: rgba(150, 150, 150, 0.5);
+          opacity: 0.7;
+          transition: background-color 200ms, border 200ms, text-shadow 200ms,
+            opacity 200ms;
 
           // about contained text
           display: flex;
@@ -107,8 +109,9 @@ export default ({
           font-size: ${size === PictureSizes.small ? "small" : "unset"};
         }
         .action:hover {
-          text-shadow: 0 0 3px beige;
+          text-shadow: 0 0 5px beige;
           background-color: rgba(150, 150, 150, 0.9);
+          opacity: 1;
           border-color: rgb(100, 100, 100);
         }
       `}</style>
