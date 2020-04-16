@@ -1,7 +1,10 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useReducer } from "react";
 import CardList from "../../components/CardList";
-import CardPicture, { PictureSizes } from "../../components/CardPicture";
+import CardPicture, {
+  ActionType,
+  PictureSizes,
+} from "../../components/CardPicture";
 import {
   ActionName,
   CardStatus,
@@ -72,7 +75,11 @@ export default () => {
                 label: "🔄 Retourner",
                 onClick: () => flipIntroCard(cardMetadata.id),
               },
-              { label: "🗑 Jeter", onClick: () => discardCard(cardMetadata.id) },
+              {
+                label: "🗑 Jeter",
+                onClick: () => discardCard(cardMetadata.id),
+                type: ActionType.danger,
+              },
             ]}
           />
         ))}
@@ -96,6 +103,7 @@ export default () => {
                 {
                   label: "🗑 Jeter",
                   onClick: () => discardCard(cardMetadata.id),
+                  type: ActionType.danger,
                 },
               ]}
             />
@@ -115,6 +123,7 @@ export default () => {
                 {
                   label: "👀 Retourner",
                   onClick: () => revealCard(cardMetadata.id),
+                  type: ActionType.warning,
                 },
               ]}
             />

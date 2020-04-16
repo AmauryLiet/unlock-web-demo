@@ -20,10 +20,22 @@ const heightMapping: { [key in PictureSizes]: number } = {
   [PictureSizes.medium]: 500,
 };
 
+export enum ActionType {
+  warning = "warning",
+  danger = "danger",
+}
+
 export interface Action {
   label: string;
   onClick: () => void;
+  type?: ActionType;
 }
+
+const COLORS = {
+  darkgrey: "169,169,169",
+  crimson: "220,20,60",
+  chocolate: "210,105,30",
+};
 
 export default ({
   cardMetadata,
@@ -45,8 +57,8 @@ export default ({
       />
       <img src={`/${cardMetadata.visibleSidePath}`} alt={alt} />
       <div className="actionContainer">
-        {actions.map(({ label, onClick }) => (
-          <div key={label} className="action" onClick={onClick}>
+        {actions.map(({ label, onClick, type = "" }) => (
+          <div key={label} className={`action ${type}`} onClick={onClick}>
             <span>{label}</span>
           </div>
         ))}
@@ -92,7 +104,7 @@ export default ({
           height: 15%;
 
           border: 3px solid transparent;
-          background-color: rgba(150, 150, 150, 0.5);
+          background-color: rgba(${COLORS.darkgrey}, 0.5);
           opacity: 0.7;
           transition: background-color 200ms, border 200ms, text-shadow 200ms,
             opacity 200ms;
@@ -110,9 +122,21 @@ export default ({
         }
         .action:hover {
           text-shadow: 0 0 5px beige;
-          background-color: rgba(150, 150, 150, 0.9);
+          background-color: rgba(${COLORS.darkgrey}, 0.9);
           opacity: 1;
           border-color: rgb(100, 100, 100);
+        }
+        .action.${ActionType.warning} {
+          background-color: rgba(${COLORS.chocolate}, 0.5);
+        }
+        .action.${ActionType.warning}:hover {
+          background-color: rgba(${COLORS.chocolate}, 0.9);
+        }
+        .action.${ActionType.danger} {
+          background-color: rgba(${COLORS.crimson}, 0.5);
+        }
+        .action.${ActionType.danger}:hover {
+          background-color: rgba(${COLORS.crimson}, 0.9);
         }
       `}</style>
     </div>
