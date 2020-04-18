@@ -92,7 +92,7 @@ export default ({
 
           display: flex;
           flex-direction: column;
-          justify-content: end;
+          justify-content: flex-end;
 
           transition: opacity 200ms;
           opacity: 0;
