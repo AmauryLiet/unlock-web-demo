@@ -14,7 +14,7 @@
     "assets:convert_pdf": "yarn script:run scripts/pdfToPngConverter.ts && prettier public/metadata.json --write"
   },
   "dependencies": {
-    "next": "^9.3.4",
+    "next": "^11.1.3",
     "ramda": "^0.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
