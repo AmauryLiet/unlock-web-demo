@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import PDF2Pic from "pdf2pic";
+import { fromPath } from "pdf2pic";
 import sharp from "sharp";
 import * as R from "ramda";
 import {
@@ -24,25 +24,27 @@ const pagesAssetsDir = path.join(assetsDir, "./pages");
 const cardsAssetsDir = path.join(__dirname, "../public");
 
 const LARGER_DIMENSION_SIZE = 3000;
+const ASSUMED_RATIO = 21 / 29.7;
 
 type PagePaths = string[];
 
 const convertPdfToPngPages = async (
   pdfFilename: string
 ): Promise<PagePaths> => {
-  const pdf2pic = new PDF2Pic({
+  const options = {
     density: 400, // output pixels per inch
-    savename: pdfFilename, // output file name
-    savedir: pagesAssetsDir, // output file location
+    saveFilename: pdfFilename, // output file name
+    savePath: pagesAssetsDir, // output file location
     format: "png", // output file format
-    size: `${LARGER_DIMENSION_SIZE}x${LARGER_DIMENSION_SIZE}`, // output size in pixels
-  });
+    height: LARGER_DIMENSION_SIZE,
+    width: LARGER_DIMENSION_SIZE * ASSUMED_RATIO,
+  };
 
   try {
-    const conversionResults = await pdf2pic.convertBulk(
+    const conversionResults = await fromPath(
       path.join(pdfAssetsDir, `${pdfFilename}.pdf`),
-      -1
-    );
+      options
+    ).bulk(-1, false);
     console.info(`✅ pdf "${pdfFilename}" successfully converted in png`);
 
     return conversionResults.map((result) => result.path);
